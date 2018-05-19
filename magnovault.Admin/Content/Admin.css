@@ -1,0 +1,105 @@
+﻿body {
+  padding-top: 50px;
+  padding-bottom: 20px; }
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+  padding-left: 15px;
+  padding-right: 15px; }
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+  white-space: normal; }
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+  max-width: 280px; }
+
+.action-buttons {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  margin-top: 50px; }
+
+.action-buttons a {
+  min-width: 300px; }
+
+footer {
+  text-align: center; }
+
+.jumbotron {
+  text-align: center;
+  background-color: lightblue; }
+
+.doc-title {
+  text-align: center;
+  color: forestgreen;
+  margin: 20px 0 50px 0; }
+
+address {
+  font-size: 90%;
+  color: darkgreen;
+  border: 1px solid green;
+  width: 380px;
+  padding: 10px 50px; }
+
+.page-header {
+  color: steelblue; }
+
+.documentation-header {
+  color: green;
+  margin-top: 80px;
+  border-top: 1px solid green;
+  border-bottom: 1px solid green; }
+
+section {
+  margin-top: 40px; }
+
+section > h4 {
+  color: forestgreen;
+  margin-bottom: 3px;
+  text-decoration: underline; }
+
+caption {
+  font-size: 24px;
+  color: green;
+  margin: 50px 0 20px 0;
+  background-color: mintcream;
+  border: 1px solid green; }
+
+td {
+  width: 1%;
+  white-space: nowrap; }
+
+.multi-column {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center; }
+
+.form-column {
+  border: 1px solid steelblue;
+  margin: 20px;
+  padding: 20px; }
+
+.form-column-header {
+  color: steelblue;
+  margin: 5px 0 10px 10px; }
+
+.form-group > label {
+  width: 100px; }
+
+.plain {
+  border: none;
+  width: 70px; }
+
+.total {
+  margin: 0;
+  width: 50%; }
+
+.btn-margin {
+  margin: 4px; }
+

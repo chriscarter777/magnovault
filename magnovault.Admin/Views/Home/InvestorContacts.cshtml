@@ -1,0 +1,61 @@
+﻿@model magnovault.Admin.ViewModels.HomeViewModel
+@{
+     ViewBag.Title = "Investor Contacts";
+}
+
+@if (Model.InvestorContacts.Length == 0)
+{
+     <h4>There are no Investor Contacts</h4>
+}
+else
+{
+     using (Html.BeginForm())
+     {
+          <table class="table table-striped table-bordered">
+               <caption>Investor Contacts</caption>
+               <thead>
+                    <tr>
+                         <th>Done</th>
+                         <th>Date</th>
+                         <th>First Name</th>
+                         <th>Last Name</th>
+                         <th>Title</th>
+                         <th>Organization</th>
+                         <th>Phone</th>
+                         <th>Email</th>
+                         <th>Best&nbsp;Method</th>
+                         <th>How Heard</th>
+                         <th>Investment Type</th>
+                         <th>&nbsp;</th>
+                    </tr>
+               </thead>
+               <tbody>
+                    @for (int i = 0; i < Model.InvestorContacts.Length; i++)
+                    {
+                         <tr>
+                              @Html.HiddenFor(m => m.InvestorContacts[i].Id)
+                              <td>@Html.EditorFor(m => m.InvestorContacts[i].Done)</td>
+                              <td>@Html.EditorFor(m => m.InvestorContacts[i].OnDate)</td>
+                              <td>@Html.EditorFor(m => m.InvestorContacts[i].FirstName)</td>
+                              <td>@Html.EditorFor(m => m.InvestorContacts[i].LastName)</td>
+                              <td>@Html.EditorFor(m => m.InvestorContacts[i].Title)</td>
+                              <td>@Html.EditorFor(m => m.InvestorContacts[i].Organization)</td>
+                              <td>@Html.EditorFor(m => m.InvestorContacts[i].Phone)</td>
+                              <td>@Html.EditorFor(m => m.InvestorContacts[i].Email)</td>
+                              <td>
+                                   @Html.RadioButtonFor(m => m.InvestorContacts[i].BestMethod, "email") email <br />
+                                   @Html.RadioButtonFor(m => m.InvestorContacts[i].BestMethod, "phone") phone
+                              </td>
+                              <td>@Html.EditorFor(m => m.InvestorContacts[i].HowHeard)</td>
+                              <td>@Html.EditorFor(m => m.InvestorContacts[i].InvestType)</td>
+                              <td>
+                                   <input type="submit" value="Update" class="btn btn-xs btn-warning" formaction='@Url.Action("InvestorContacts", "Home", new { id = i })' onclick="return confirm('Are you sure you want to update this record?')" />
+                                   @Html.ActionLink("Delete", "DeleteInvestorContact", "Home", new { id = Model.InvestorContacts[i].Id }, new { @class = "btn btn-xs btn-danger", @onclick = "return confirm('Are you sure you want to DELETE this record?')" })
+                              </td>
+                         </tr>
+                    } @*iteration*@
+               </tbody>
+          </table>
+     } @*end form*@
+     @Html.ActionLink("Add new investor contact", "AddInvestorContact", "Home", null, new { @class = "btn btn-sm btn-success" })
+}

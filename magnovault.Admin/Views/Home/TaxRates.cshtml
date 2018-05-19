@@ -1,0 +1,38 @@
+﻿@model magnovault.Admin.ViewModels.HomeViewModel
+@{
+     ViewBag.Title = "Tax Rates";
+}
+
+@if (Model.TaxRates.Length == 0)
+{
+     <h4>There are no Tax Rates</h4>
+}
+else
+{
+     using (Html.BeginForm())
+     {
+          <table class="table table-striped table-bordered">
+               <caption>Tax Rates</caption>
+               <thead>
+                    <tr>
+                         <th>State</th>
+                         <th>Rate</th>
+                         <th>&nbsp;</th>
+                    </tr>
+               </thead>
+               <tbody>
+                    @for (int i = 0; i < Model.TaxRates.Length; i++)
+                    {
+                         <tr>
+                              @Html.HiddenFor(m => m.TaxRates[i].Id)
+                              <td>@Html.EditorFor(m => m.TaxRates[i].State)</td>
+                              <td>@Html.EditorFor(m => m.TaxRates[i].Rate)</td>
+                              <td>
+                                   <input type="submit" value="Update" class="btn btn-xs btn-warning" formaction='@Url.Action("TaxRates", "Home", new { id = i })' onclick="return confirm('Are you sure you want to update this record?')" />
+                              </td>
+                         </tr>
+                    }   @*iteration*@
+               </tbody>
+          </table>
+     } @*end form*@
+}

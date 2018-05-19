@@ -1,0 +1,56 @@
+﻿@model magnovault.Admin.ViewModels.HomeViewModel
+@{
+     ViewBag.Title = "Customers";
+}
+
+@if (Model.Customers.Length == 0)
+{
+     <h4>There are no Customers</h4>
+}
+else
+{
+     using (Html.BeginForm())
+     {
+          <table class="table table-striped table-bordered">
+               <caption>Customers</caption>
+               <thead>
+                    <tr>
+                         <th>First Name</th>
+                         <th>Last Name</th>
+                         <th>Street</th>
+                         <th>City</th>
+                         <th>State</th>
+                         <th>Zip</th>
+                         <th>Phone</th>
+                         <th>Email</th>
+                         <th>Best&nbsp;Method</th>
+                         <th>&nbsp;</th>
+                    </tr>
+               </thead>
+               <tbody>
+                    @for (int i = 0; i < Model.Customers.Length; i++)
+                    {
+                         <tr>
+                              @Html.HiddenFor(m => m.Customers[i].UserId)
+                              <td>@Html.EditorFor(m => m.Customers[i].FirstName)</td>
+                              <td>@Html.EditorFor(m => m.Customers[i].LastName)</td>
+                              <td>@Html.EditorFor(m => m.Customers[i].Street)</td>
+                              <td>@Html.EditorFor(m => m.Customers[i].City)</td>
+                              <td>@Html.EditorFor(m => m.Customers[i].State)</td>
+                              <td>@Html.EditorFor(m => m.Customers[i].Zip)</td>
+                              <td>@Html.EditorFor(m => m.Customers[i].Phone)</td>
+                              <td>@Html.EditorFor(m => m.Customers[i].Email)</td>
+                              <td>
+                                   @Html.RadioButtonFor(m => m.Customers[i].BestMethod, "email") email <br />
+                                   @Html.RadioButtonFor(m => m.Customers[i].BestMethod, "phone") phone
+                              </td>
+                              <td>
+                                   <input type="submit" value="Update" class="btn btn-xs btn-warning" formaction='@Url.Action("Customers", "Home", new { id = i })' onclick="return confirm('Are you sure you want to update this record?')" />
+                                   @Html.ActionLink("Delete", "DeleteCustomer", "Home", new { id = Model.Customers[i].UserId }, new { @class = "btn btn-xs btn-danger", @onclick = "return confirm('Are you sure you want to DELETE this record?')" })
+                              </td>
+                         </tr>
+                    }   @*iteration*@
+               </tbody>
+          </table>
+     } @*end form*@
+}

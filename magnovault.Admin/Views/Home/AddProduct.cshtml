@@ -1,0 +1,33 @@
+﻿@model magnovault.Admin.ViewModels.HomeViewModel
+@{
+     ViewBag.Title = "Add Product";
+}
+
+<h2 class="page-header">Add Product</h2>
+
+@using (Html.BeginForm())
+{
+     <div class="form-group">
+          <label>Name</label>
+          @Html.EditorFor(m => m.NewProduct.Name)
+     </div>
+     <div class="form-group">
+          <label>Short Description</label>
+          @Html.EditorFor(m => m.NewProduct.ShortDescr)
+     </div>
+     <div class="form-group">
+          <label>Long Description</label>
+          @Html.EditorFor(m => m.NewProduct.LongDescr)
+     </div>
+     <div class="form-group">
+          <label>Image Path</label>
+          @Html.EditorFor(m => m.NewProduct.ImagePath)
+     </div>
+     <div class="form-group">
+          <label>Price</label>
+          @Html.EditorFor(m => m.NewProduct.Price)
+     </div>
+
+     <input type="submit" value="Add" class="btn btn-sm btn-success" />
+     @Html.ActionLink("Cancel", "Products", "Home", null, new { @class = "btn btn-sm btn-danger" })
+}

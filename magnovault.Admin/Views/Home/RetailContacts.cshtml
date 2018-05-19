@@ -1,0 +1,70 @@
+﻿@model magnovault.Admin.ViewModels.HomeViewModel
+@{
+     ViewBag.Title = "Retail Contacts";
+}
+
+@if (Model.RetailContacts.Length == 0)
+{
+     <h4>There are no Retail Contacts</h4>
+}
+else
+{
+     using (Html.BeginForm())
+     {
+          <table class="table table-striped table-bordered">
+               <caption>Retail Contacts</caption>
+               <thead>
+                    <tr>
+                         <th>Done</th>
+                         <th>Date</th>
+                         <th>First Name</th>
+                         <th>Last Name</th>
+                         <th>Title</th>
+                         <th>Org Name</th>
+                         <th>Org Type</th>
+                         <th>Org Website</th>
+                         <th>City</th>
+                         <th>State</th>
+                         <th>Phone</th>
+                         <th>Email</th>
+                         <th>Best&nbsp;Method</th>
+                         <th>How Heard</th>
+                         <th>Message</th>
+                         <th>&nbsp;</th>
+                    </tr>
+               </thead>
+               <tbody>
+                    @for (int i = 0; i < Model.RetailContacts.Length; i++)
+                    {
+                         <tr>
+                              @Html.HiddenFor(m => m.RetailContacts[i].Id)
+                              <td>@Html.EditorFor(m => m.RetailContacts[i].Done)</td>
+                              <td>@Html.EditorFor(m => m.RetailContacts[i].OnDate)</td>
+                              <td>@Html.EditorFor(m => m.RetailContacts[i].FirstName)</td>
+                              <td>@Html.EditorFor(m => m.RetailContacts[i].LastName)</td>
+                              <td>@Html.EditorFor(m => m.RetailContacts[i].Title)</td>
+                              <td>@Html.EditorFor(m => m.RetailContacts[i].OrgName)</td>
+                              <td>@Html.EditorFor(m => m.RetailContacts[i].OrgType)</td>
+                              <td>@Html.EditorFor(m => m.RetailContacts[i].OrgWebsite)</td>
+                              <td>@Html.EditorFor(m => m.RetailContacts[i].City)</td>
+                              <td>@Html.EditorFor(m => m.RetailContacts[i].State)</td>
+                              <td>@Html.EditorFor(m => m.RetailContacts[i].Phone)</td>
+                              <td>@Html.EditorFor(m => m.RetailContacts[i].Email)</td>
+                              <td>
+                                   @Html.RadioButtonFor(m => m.RetailContacts[i].BestMethod, "email") email <br />
+                                   @Html.RadioButtonFor(m => m.RetailContacts[i].BestMethod, "phone") phone
+                              </td>
+                              <td>@Html.EditorFor(m => m.RetailContacts[i].HowHeard)</td>
+                              <td>@Html.EditorFor(m => m.RetailContacts[i].Message)</td>
+                              <td>
+                                   <input type="submit" value="Update" class="btn btn-xs btn-warning" formaction='@Url.Action("RetailContacts", "Home", new { id = i })' onclick="return confirm('Are you sure you want to update this record?')" />
+                                   @Html.ActionLink("Delete", "DeleteRetailContact", "Home", new { id = Model.RetailContacts[i].Id }, new { @class = "btn btn-xs btn-danger", @onclick = "return confirm('Are you sure you want to DELETE this record?')" })
+                              </td>
+                         </tr>
+                    } @*iteration*@
+               </tbody>
+               }  @*end form*@
+          </table>
+     } @*end form*@
+     @Html.ActionLink("Add new retail contact", "AddRetailContact", "Home", null, new { @class = "btn btn-sm btn-success" })
+}

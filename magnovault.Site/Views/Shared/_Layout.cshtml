@@ -1,0 +1,493 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+     <meta charset="utf-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>@ViewBag.Title</title>
+</head>
+<body>
+     @Scripts.Render("~/bundles/scripts")
+     @Styles.Render("~/Content/css")
+
+     <div class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container-fluid">
+               <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                         <span class="icon-bar"></span>
+                         <span class="icon-bar"></span>
+                         <span class="icon-bar"></span>
+                    </button>
+               </div>
+               <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav main-nav">
+                         <li>
+                              <img src="~/Content/Logo_2in.png" class="nav-logo" alt="logo" />
+                         </li>
+                         <li>
+                              <div class="navlink active" id='homeLink'>
+                                   <span class='glyphicon glyphicon-home'></span> Home
+                              </div>
+                         </li>
+                         <li>
+                              <div class="navlink" id='dapLink'>
+                                   <span class='glyphicon glyphicon-th-list'></span> The Problem
+                              </div>
+                         </li>
+                         <li>
+                              <div class="navlink" id='productLink'>
+                                   <span class='glyphicon glyphicon-th-list'></span> Products
+                              </div>
+                         </li>
+                         <li>
+                              <div class="navlink" id='faqLink'>
+                                   <span class='glyphicon glyphicon-th-list'></span> FAQ
+                              </div>
+                         </li>
+                         <li>
+                              <div class="navlink" id='orderLink'>
+                                   <span class='glyphicon glyphicon-shopping-cart'></span> Order
+                              </div>
+                         </li>
+                         <li class="dropdown">
+                              <div class="navlink btn btn-secondary dropdown-toggle" type="button" id="contactLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                   <span class='glyphicon glyphicon-envelope'></span>Contact Us
+                              </div>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                   <div class="navlink" id='publicLink'>General Inquiries</div>
+                                   <div class="navlink" id='mediaLink'>Media Relations</div>
+                                   <div class="navlink" id='investorLink'>Investor Relations </div>
+                                   <div class="navlink" id='retailerLink'>Retailers</div>
+                              </div>
+                         </li>
+                         <li>
+                              <div class="navlink" id='aboutLink'>
+                                   <span class='glyphicon glyphicon-certificate'></span> About
+                              </div>
+                         </li>
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+               </div>
+          </div>
+     </div>
+     <div class="container-fluid body-content">
+          @RenderBody()
+          <footer class="navbar-bottom">
+               <p>&copy; @DateTime.Now.Year - Magnovault</p>
+          </footer>
+     </div>
+
+
+     <script>
+     //Navigation
+     $('#aboutLink').click(function () {
+          $('.component').attr('hidden', true);
+          $('#about').removeAttr('hidden');
+          $('.navlink').removeClass('active');
+          $('#aboutLink').addClass('active');
+     });
+
+     $('#dapLink').click(function () {
+          $('.component').attr('hidden', true);
+          $('#dap').removeAttr('hidden');
+          $('.navlink').removeClass('active');
+          $('#dapLink').addClass('active');
+     });
+
+     $('#faqLink').click(function () {
+          $('.component').attr('hidden', true);
+          $('#faq').removeAttr('hidden');
+          $('.navlink').removeClass('active');
+          $('#faqLink').addClass('active');
+     });
+
+     $('#homeLink').click(function () {
+          $('.component').attr('hidden', true);
+          $('#home').removeAttr('hidden');
+          $('.navlink').removeClass('active');
+          $('#homeLink').addClass('active');
+     });
+
+     $('#investorLink').click(function () {
+          $('.component').attr('hidden', true);
+          $('#investorcontact').removeAttr('hidden');
+          $('.navlink').removeClass('active');
+          $('#contactLink').addClass('active');
+          $('#investorLink').addClass('active');
+     });
+
+     $('#mediaLink').click(function () {
+          $('.component').attr('hidden', true);
+          $('#mediacontact').removeAttr('hidden');
+          $('.navlink').removeClass('active');
+          $('#contactLink').addClass('active');
+          $('#mediaLink').addClass('active');
+     });
+
+     $('#orderLink').click(function () {
+          $('.component').attr('hidden', true);
+          $('#order').removeAttr('hidden');
+          $('.navlink').removeClass('active');
+          $('#orderLink').addClass('active');
+     });
+
+     $('#productLink').click(function () {
+          $('.component').attr('hidden', true);
+          $('#products').removeAttr('hidden');
+          $('.navlink').removeClass('active');
+          $('#productLink').addClass('active');
+     });
+
+     $('#publicLink').click(function () {
+          $('.component').attr('hidden', true);
+          $('#publiccontact').removeAttr('hidden');
+          $('.navlink').removeClass('active');
+          $('#contactLink').addClass('active');
+          $('#publicLink').addClass('active');
+     });
+
+     $('#retailerLink').click(function () {
+          $('.component').attr('hidden', true);
+          $('#retailcontact').removeAttr('hidden');
+          $('.navlink').removeClass('active');
+          $('#contactLink').addClass('active');
+          $('#retailerLink').addClass('active');
+     });
+
+     //Home
+
+     //DAP
+
+     //Products
+
+     //FAQ
+
+     //Order
+     $('#Order_Customer_Id').change(function () {
+          event.preventDefault();
+          var baseUrl = '@Url.Action("GetCustomerAsync", "Home")';
+          var targetUrl = baseUrl + '/' + $('#Order_Customer_Id').val();
+          //var targeturl = 'Home/GetCustomerAsync/' + $('#Order_Customer_Id').val();
+          $.get(targeturl, function (customer) {
+               $('#Order_Customer_FirstName').val(customer.FirstName);
+               $('#Order_Customer_LastName').val(customer.LastName);
+               $('#Order_Customer_Street').val(customer.Street);
+               $('#Order_Customer_City').val(customer.City);
+               $('#Order_Customer_State').val(customer.State);
+               $('#Order_Customer_Zip').val(customer.Zip);
+               $('#Order_Customer_Phone').val(customer.Phone);
+               $('#Order_Customer_Email').val(customer.Email);
+               $('#Order_ShipFirstName').val(customer.FirstName);
+               $('#Order_ShipLastName').val(customer.LastName);
+               $('#Order_ShipStreet').val(customer.Street);
+               $('#Order_ShipCity').val(customer.City);
+               $('#Order_ShipState').val(customer.State);
+               $('#Order_ShipZip').val(customer.Zip);
+               if (customer.BestMethod == 'phone') {
+                    $('#prefphone').removeAttr('hidden');
+                    $('#prefemail').attr('hidden', true);
+               }
+               if (customer.BestMethod == 'email') {
+                    $('#prefphone').attr('hidden', true);
+                    $('#prefemail').removeAttr('hidden');
+               }
+          });
+     });
+
+
+     $('.item-quantity').change(function () {
+          event.preventDefault();
+          calculateSubtotal()
+          if ($('#Order_ShipState').val() != '') {
+               calculateOrder();
+          }
+     });
+
+     $('#Order_ShipState').change(function () {
+          event.preventDefault();
+          calculateOrder();
+     });
+
+     $('#copy2shipping').click(function () {
+          event.preventDefault();
+          $('#Order_ShipFirstName').val($('#CreditCard_BillFirstName').val());
+          $('#Order_ShipLastName').val($('#CreditCard_BillLastName').val());
+          $('#Order_ShipStreet').val($('#CreditCard_BillStreet').val());
+          $('#Order_ShipCity').val($('#CreditCard_BillCity').val());
+          $('#Order_ShipState').val($('#CreditCard_BillState').val());
+          $('#Order_ShipZip').val($('#CreditCard_BillZip').val());
+          if ($('#Order_ShipState').val() != '') {
+               calculateOrder();
+          }
+          });
+
+          $('#checkout-order').click(function () {
+               $('#order-action').show();
+               $('#close-message').text('Cancel');
+               $('#modal-resolution').hide();
+          });
+
+     function calculateSubtotal() {
+          var subtotal = 0;
+          var productCount = $('#ProductCount').val()
+          for (let i = 0; i < productCount; i++) {
+               var lineprice = $('#Order_Items_' + i + '__UnitPrice').val();
+               var linequantity = $('#Order_Items_' + i + '__Quantity').val();
+               var linetotal = lineprice * linequantity;
+               $('#item-' + i + '-quantity').text(linequantity);
+               $('#Order_Items_' + i + '__LineTotal').val(linetotal);
+               $('#item-' + i + '-linetotal').text('$' + linetotal.toFixed(2));
+               subtotal += linetotal;
+          }
+          $('#Order_Subtotal').val(subtotal);
+          $('.order-subtotal').text('$' + subtotal.toFixed(2));
+          return subtotal;
+     }
+
+     function calculateOrder() {
+          event.preventDefault();
+          var productCount = $('#ProductCount').val()
+
+          //construct an AjaxOrder object
+          var orderItems = [productCount];
+          for (let i = 0; i < productCount; i++) {
+               orderItems[i] = {
+                    ProductName: $('#Products_' + i + '__Name').val(),
+                    ProductShortDescr: $('#Products_' + i + '__ShortDescr').val(),
+                    UnitPrice: $('#Order_Items_' + i + '__UnitPrice').val(),
+                    Quantity: $('#Order_Items_' + i + '__Quantity').val(),
+                    LineTotal: $('#Order_Items_' + i + '__LineTotal').val(),
+               };
+          }
+
+          var order = JSON.stringify({
+               ShipState: $('#Order_ShipState').val(),
+               ShipZip: $('#Order_ShipZip').val(),
+               Items: orderItems,
+               Campaign: $('#Order_Campaign').val(),
+               Subtotal: 0,
+               Tax: 0,
+               ShipHand: 0,
+               Adjustment: 0,
+               Total: 0
+          });
+
+
+          //send it and repopulate the form elements based on the response
+          $.ajax({
+               url: '@Url.Action("CalculateOrderAsync", "Home")',
+               type: 'POST',
+               contentType: 'application/json',
+               context: document.body,
+               data: order,
+               success: function (response) {
+                    $('#Order_Subtotal').attr('value', response.Subtotal);
+                    $('.order-subtotal').text('$' + response.Subtotal.toFixed(2));
+
+                    $('#Order_ShipHand').attr( 'value', response.ShipHand );
+                    $('#order-shiphand').text('$' + response.ShipHand.toFixed(2));
+
+                    $('#Order_Tax').attr('value', response.Tax);
+                    $('#order-tax').text('$' + response.Tax.toFixed(2));
+
+                    $('#Order_Adjustment').attr('value', response.Adjustment);
+                    $('#order-adjustment').text('$' + response.Adjustment.toFixed(2));
+
+                    $('#Order_Total').attr('value', response.Total);
+                    $('#order-total').text('$' + response.Total.toFixed(2));
+
+                    for (let i = 0; i < productCount; i++) {
+                         $('#Order_Items_' + i + '__LineTotal').attr('value', response.Items[i].LineTotal);
+                         $('#item' + i + '-linetotal').text('$' + response.Items[i].LineTotal.toFixed(2));
+                    };
+                    $('#submit-order').removeAttr('disabled');
+               }
+          });
+          };
+
+          function submitOrderSuccess(data) {
+               switch (data) {
+                    case '1':
+                         {
+                              $('#response-message').text('Your order was submitted successfully.');
+                              break;
+                         }
+                    case '2':
+                         {
+                              $('#response-message').text('Sorry, your order was declined by the processor.');
+                              break;
+                         }
+                    case '3':
+                         {
+                              $('#response-message').text('Sorry, an error occurred while processing your order.');
+                              break;
+                        }
+                    case '4':
+                         {
+                              $('#response-message').text('Your order was held for review by the processor.');
+                              break;
+                        }
+                    default:
+                         {
+                              $('#response-message').text('Sorry, an unknown response was received while processing your order.');
+                        }
+               };
+               $('#order-action').hide();
+               $('#close-message').text('Close');
+               $('#modal-resolution').show();
+         };
+
+          function submitOrderFailure(data) {
+               $('#response-message').text('An error occurred while submitting your order to the processor.  Retrying may work.');
+               $('#close-message').text('Close');
+               $('#modal-resolution').show();
+          };
+
+
+     //Investor Contact
+     $('#submitInvestor').click(function () {
+          event.preventDefault();
+          var targeturl = '@Url.Action("SubmitInvestorContact", "Home")';
+
+          //construct the contact object from the form elements.
+          var contact = JSON.stringify({
+               OnDate: new Date(),
+               FirstName: $('#InvestorContact_FirstName').val(),
+               LastName: $('#InvestorContact_LastName').val(),
+               Title: $('#InvestorContact_Title').val(),
+               Organization: $('#InvestorContact_Organization').val(),
+               City: $('#InvestorContact_City').val(),
+               State: $('#InvestorContact_State').val(),
+               Email: $('#InvestorContact_Email').val(),
+               Phone: $('#InvestorContact_Phone').val(),
+               BestMethod: $('#InvestorContact_BestMethod').val(),
+               HowHeard: $('#InvestorContact_HowHeard').val(),
+               InvestType: $('#InvestorContact_InvestType').val(),
+               Done: false
+          });
+          //send it and populate the response message
+          $.ajax({
+               url: targeturl,
+               type: 'POST',
+               contentType: 'application/json',
+               context: document.body,
+               data: contact,
+               success: function (response) {
+                    $('#InvestorFeedback').val(response);
+               }
+          });
+     });
+
+
+     //Media Contact
+     $('#submitMedia').click(function () {
+          event.preventDefault();
+          var targeturl = '@Url.Action("SubmitMediaContact", "Home")';
+
+          //construct the contact object from the form elements.
+          var contact = JSON.stringify({
+               OnDate: new Date(),
+               FirstName: $('#MediaContact_FirstName').val(),
+               LastName: $('#MediaContact_LastName').val(),
+               Title: $('#MediaContact_Title').val(),
+               Organization: $('#MediaContact_Organization').val(),
+               City: $('#MediaContact_City').val(),
+               State: $('#MediaContact_State').val(),
+               Phone: $('#MediaContact_Phone').val(),
+               Email: $('#MediaContact_Email').val(),
+               BestMethod: $('#MediaContact_BestMethod').val(),
+               HowHeard: $('#MediaContact_HowHeard').val(),
+               Message: $('#MediaContact_Message').val(),
+               Done: false
+          });
+          //send it and populate the response message
+          $.ajax({
+               url: targeturl,
+               type: 'POST',
+               contentType: 'application/json',
+               context: document.body,
+               data: contact,
+               success: function (response) {
+                    $('#MediaFeedback').val(response);
+               }
+          });
+     });
+
+
+     //Public Contact
+     $('#submitPublic').click(function () {
+          event.preventDefault();
+          var targeturl = '@Url.Action("SubmitPublicContact", "Home")';
+
+          //construct the contact object from the form elements.
+          var contact = JSON.stringify({
+               OnDate: new Date(),
+               FirstName: $('#PublicContact_FirstName').val(),
+               LastName: $('#PublicContact_LastName').val(),
+               Street: $('#PublicContact_Street').val(),
+               City: $('#PublicContact_City').val(),
+               State: $('#PublicContact_State').val(),
+               Zip: $('#PublicContact_Zip').val(),
+               Phone: $('#PublicContact_Phone').val(),
+               Email: $('#PublicContact_Email').val(),
+               BestMethod: $('#PublicContact_BestMethod').val(),
+               HowHeard: $('#PublicContact_HowHeard').val(),
+               Message: $('#PublicContact_Message').val(),
+               Done: false
+          });
+          //send it and populate the response message
+          $.ajax({
+               url: targeturl,
+               type: 'POST',
+               contentType: 'application/json',
+               context: document.body,
+               data: contact,
+               success: function (response) {
+                    $('#PublicFeedback').val(response);
+               }
+          });
+     });
+
+
+     //Retail Contact
+     $('#submitRetail').click(function () {
+          event.preventDefault();
+          var targeturl = '@Url.Action("SubmitRetailContact", "Home")';
+
+          //construct the contact object from the form elements.
+          var contact = JSON.stringify({
+               OnDate: new Date(),
+               FirstName: $('#RetailContact_FirstName').val(),
+               LastName: $('#RetailContact_LastName').val(),
+               Title: $('#RetailContact_Title').val(),
+               OrgName: $('#RetailContact_OrgName').val(),
+               OrgType: $('#RetailContact_OrgType').val(),
+               OrgWebsite: $('#RetailContact_OrgWebsite').val(),
+               City: $('#RetailContact_City').val(),
+               State: $('#RetailContact_State').val(),
+               Phone: $('#RetailContact_Phone').val(),
+               Email: $('#RetailContact_Email').val(),
+               BestMethod: $('#RetailContact_BestMethod').val(),
+               HowHeard: $('#RetailContact_HowHeard').val(),
+               Message: $('#RetailContact_Message').val(),
+               Done: false
+          });
+          //send it and populate the response message
+          $.ajax({
+               url: targeturl,
+               type: 'POST',
+               contentType: 'application/json',
+               context: document.body,
+               data: contact,
+               success: function (response) {
+                    $('#RetailFeedback').val(response);
+               }
+          });
+     });
+
+     //About
+
+     </script>
+
+
+</body>
+</html>

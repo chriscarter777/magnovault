@@ -1,0 +1,21 @@
+﻿@model magnovault.Admin.ViewModels.HomeViewModel
+@{
+     ViewBag.Title = "AuthorizeNetSandbox";
+}
+
+<h2>AuthorizeNetSandbox</h2>
+
+@using (Html.BeginForm())
+{
+     <p>Test Credit Card Submission:</p>
+     <input type="submit" value="Submit" />
+}
+
+@Html.LabelFor(m => m.ResponseCode):
+@Html.DisplayFor(m => m.ResponseCode)
+<br />
+@Html.LabelFor(m => m.TransactionId):
+@Html.DisplayFor(m => m.TransactionId)
+<br />
+@Html.LabelFor(m => m.AuthorizationCode):
+@Html.DisplayFor(m => m.AuthorizationCode)

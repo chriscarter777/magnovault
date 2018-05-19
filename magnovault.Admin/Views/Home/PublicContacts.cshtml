@@ -1,0 +1,65 @@
+﻿@model magnovault.Admin.ViewModels.HomeViewModel
+@{
+     ViewBag.Title = "Public Contacts";
+}
+
+@if (Model.PublicContacts.Length == 0)
+{
+     <h4>There are no Public Contacts</h4>
+}
+else
+{
+     using (Html.BeginForm())
+     {
+          <table class="table table-striped table-bordered">
+               <caption>Public Contacts</caption>
+               <thead>
+                    <tr>
+                         <th>Done</th>
+                         <th>Date</th>
+                         <th>First Name</th>
+                         <th>Last Name</th>
+                         <th>Street</th>
+                         <th>City</th>
+                         <th>State</th>
+                         <th>Zip</th>
+                         <th>Phone</th>
+                         <th>Email</th>
+                         <th>Best&nbsp;Method</th>
+                         <th>How Heard</th>
+                         <th>Message</th>
+                         <th>&nbsp;</th>
+                    </tr>
+               </thead>
+               <tbody>
+                    @for (int i = 0; i < Model.PublicContacts.Length; i++)
+                    {
+                         <tr>
+                              @Html.HiddenFor(m => m.PublicContacts[i].Id)
+                              <td>@Html.EditorFor(m => m.PublicContacts[i].Done)</td>
+                              <td>@Html.EditorFor(m => m.PublicContacts[i].OnDate)</td>
+                              <td>@Html.EditorFor(m => m.PublicContacts[i].FirstName)</td>
+                              <td>@Html.EditorFor(m => m.PublicContacts[i].LastName)</td>
+                              <td>@Html.EditorFor(m => m.PublicContacts[i].Street)</td>
+                              <td>@Html.EditorFor(m => m.PublicContacts[i].City)</td>
+                              <td>@Html.EditorFor(m => m.PublicContacts[i].State)</td>
+                              <td>@Html.EditorFor(m => m.PublicContacts[i].Zip)</td>
+                              <td>@Html.EditorFor(m => m.PublicContacts[i].Phone)</td>
+                              <td>@Html.EditorFor(m => m.PublicContacts[i].Email)</td>
+                              <td>
+                                   @Html.RadioButtonFor(m => m.PublicContacts[i].BestMethod, "email") email <br />
+                                   @Html.RadioButtonFor(m => m.PublicContacts[i].BestMethod, "phone") phone
+                              </td>
+                              <td>@Html.EditorFor(m => m.PublicContacts[i].HowHeard)</td>
+                              <td>@Html.EditorFor(m => m.PublicContacts[i].Message)</td>
+                              <td>
+                                   <input type="submit" value="Update" class="btn btn-xs btn-warning" formaction='@Url.Action("PublicContacts", "Home", new { id = i })' onclick="return confirm('Are you sure you want to update this record?')" />
+                                   @Html.ActionLink("Delete", "DeletePublicContact", "Home", new { id = Model.PublicContacts[i].Id }, new { @class = "btn btn-xs btn-danger", @onclick = "return confirm('Are you sure you want to DELETE this record?')" })
+                              </td>
+                         </tr>
+                    } @*iteration*@
+               </tbody>
+          </table>
+     } @*end form*@
+     @Html.ActionLink("Add new public contact", "AddPublicContact", "Home", null, new { @class = "btn btn-sm btn-success" })
+}

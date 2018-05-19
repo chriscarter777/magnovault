@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+     <meta charset="utf-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Admin: @ViewBag.Title</title>
+
+</head>
+<body>
+     @Scripts.Render("~/bundles/jquery")
+     @Scripts.Render("~/bundles/bootstrap")
+     @Styles.Render("~/Content/css")
+
+     <div class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container-fluid">
+               <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                         <span class="icon-bar"></span>
+                         <span class="icon-bar"></span>
+                         <span class="icon-bar"></span>
+                    </button>
+                    <a href="@Url.Action("Index")" class="navbar-brand">
+                         <img src="~/Content/Logo_0_5in.png" class="nav-logo" alt="logo" /> Administration
+                    </a>
+               </div>
+               <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                         <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                         <li>@Html.ActionLink("Products", "Products", "Home")</li>
+                         <li>@Html.ActionLink("Customers", "Customers", "Home")</li>
+                         <li>@Html.ActionLink("Orders", "Orders", "Home")</li>
+                         <li>@Html.ActionLink("Investor Contacts", "InvestorContacts", "Home")</li>
+                         <li>@Html.ActionLink("Media Contacts", "MediaContacts", "Home")</li>
+                         <li>@Html.ActionLink("Public Contacts", "PublicContacts", "Home")</li>
+                         <li>@Html.ActionLink("Retail Contacts", "RetailContacts", "Home")</li>
+                         <li>@Html.ActionLink("Business Rules", "BusinessRules", "Home")</li>
+                         <li>@Html.ActionLink("Tax Rates", "TaxRates", "Home")</li>
+                         <li>@Html.ActionLink("Documentation", "Documentation", "Home")</li>
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+               </div>
+          </div>
+     </div>
+     <div class="container-fluid body-content">
+          @RenderBody()
+          <footer class="navbar-fixed-bottom">
+               <hr />
+               <p>&copy; @DateTime.Now.Year - MagnoVault</p>
+          </footer>
+     </div>
+
+     @RenderSection("scripts", required: false)
+</body>
+</html>

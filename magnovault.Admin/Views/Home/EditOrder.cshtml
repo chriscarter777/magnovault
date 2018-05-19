@@ -1,0 +1,231 @@
+﻿@model magnovault.Admin.ViewModels.HomeViewModel
+@{
+     ViewBag.Title = "Edit Order";
+}
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+<h2 class="page-header">Edit Order</h2>
+
+@using (Html.BeginForm())
+{
+     <div class="multi-column">
+          <div class="form-column">
+               <h4 class="form-column-header">Misc</h4>
+               <hr />
+               <div class="form-group">
+                    <label>Done</label>
+                    @Html.EditorFor(m => m.EditOrder.Done)
+               </div>
+               <div class="form-group">
+                    <label>Deferred</label>
+                    @Html.EditorFor(m => m.EditOrder.Deferred)
+               </div>
+               <div class="form-group">
+                    <label>Date</label>
+                    @Html.EditorFor(m => m.EditOrder.OnDate)
+               </div>
+          </div>
+
+          <div class="form-column">
+               <h4 class="form-column-header">Customer</h4>
+               <hr />
+               <div class="form-group">
+                    <label>First Name</label>
+                    @Html.EditorFor(m => m.EditOrder.FirstName)
+               </div>
+               <div class="form-group">
+                    <label>Last Name</label>
+                    @Html.EditorFor(m => m.EditOrder.LastName)
+               </div>
+               <div class="form-group">
+                    <label>Street</label>
+                    @Html.EditorFor(m => m.EditOrder.Street)
+               </div>
+               <div class="form-group">
+                    <label>City</label>
+                    @Html.EditorFor(m => m.EditOrder.City)
+               </div>
+               <div class="form-group">
+                    <label>State</label>
+                    @Html.EditorFor(m => m.EditOrder.State)
+               </div>
+               <div class="form-group">
+                    <label>Zip</label>
+                    @Html.EditorFor(m => m.EditOrder.Zip)
+               </div>
+               <div class="form-group">
+                    <label>Phone</label>
+                    @Html.EditorFor(m => m.EditOrder.Phone)
+                    @if (Model.EditOrder.BestMethod == "phone")
+                    {
+                         <span id="prefphone" style="color: firebrick;"> *</span>
+                    }
+                    else
+                    {
+                         <span id="prefphone" style="color: firebrick;" hidden> *</span>
+                    }
+               </div>
+               <div class="form-group">
+                    <label>Email</label>
+                    @Html.EditorFor(m => m.EditOrder.Email)
+                    @if (Model.EditOrder.BestMethod == "email")
+                    {
+                         <span id="prefemail" style="color: firebrick;"> *</span>
+                    }
+                    else
+                    {
+                         <span id="prefemail" style="color: firebrick;" hidden> *</span>
+                    }
+               </div>
+          </div>
+
+
+          <div class="form-column">
+               <h4 class="form-column-header">Items</h4>
+               <hr />
+               @for (int j = 0; j < Model.EditOrder.Items.Count; j++)
+               {
+                    @Html.HiddenFor(m => m.EditOrder.Items[j].ProductId)
+                    @Html.HiddenFor(m => m.EditOrder.Items[j].ProductName)
+                    @Html.HiddenFor(m => m.EditOrder.Items[j].ProductShortDescr)
+                    @Html.HiddenFor(m => m.EditOrder.Items[j].ProductImagePath)
+                    <div class="form-group">
+                         <label>@Model.EditOrder.Items[j].ProductName,</label>
+                         <label>@Model.EditOrder.Items[j].ProductShortDescr</label>
+                    </div>
+                    <div class="form-group">
+                         <label>Quantity</label>
+                         @Html.EditorFor(m => m.EditOrder.Items[j].Quantity)
+                         <br />
+                         <label>Unit Price</label>
+                         @Html.TextBoxFor(m => m.EditOrder.Items[j].UnitPrice, "{0:$0.00}", new { @class = "plain" })
+                         <br />
+                         <label>Line Total</label>
+                         @Html.TextBoxFor(m => m.EditOrder.Items[j].LineTotal, "{0:$0.00}", new { @class = "plain" })
+                         <hr />
+                    </div>
+               }
+               <div class="form-group" style="line-height:14px;">
+                    <span style="display:inline-block; width:140px; text-align:right;">Campaign</span>
+                    @Html.EditorFor(m => m.EditOrder.Campaign)
+                    <br />
+                    <br />
+                    <button id="calculate" class="btn btn-sm btn-info" style="float:right;">Calculate</button>
+                    <label>SubTotal</label>
+                    @Html.TextBoxFor(m => m.EditOrder.Subtotal, "{0:$0.00}", new { @class = "plain" })
+                    <br />
+                    <label>Tax</label>
+                    @Html.TextBoxFor(m => m.EditOrder.Tax, "{0:$0.00}", new { @class = "plain" })
+                    <br />
+                    <label>S & H</label>
+                    @Html.TextBoxFor(m => m.EditOrder.ShipHand, "{0:$0.00}", new { @class = "plain" })
+                    <br />
+                    <label>Adjustment</label>
+                    @Html.TextBoxFor(m => m.EditOrder.Adjustment, "{0:$0.00}")
+                    <hr class="total" />
+                    <label>Total</label>
+                    @Html.TextBoxFor(m => m.EditOrder.Total, "{0:$0.00}", new { @class = "plain" })
+               </div>
+          </div>
+
+          <div class="form-column">
+               <h4 class="form-column-header">Ship To</h4>
+               <hr />
+               <div class="form-group">
+                    <button id="copy2shipping" class="btn btn-sm btn-info">Copy Customer Info</button>
+               </div>
+               <div class="form-group">
+                    <label>First Name</label>
+                    @Html.EditorFor(m => m.EditOrder.ShipFirstName)
+               </div>
+               <div class="form-group">
+                    <label>Last Name</label>
+                    @Html.EditorFor(m => m.EditOrder.ShipLastName)
+               </div>
+               <div class="form-group">
+                    <label>Street</label>
+                    @Html.EditorFor(m => m.EditOrder.ShipStreet)
+               </div>
+               <div class="form-group">
+                    <label>Shipping City</label>
+                    @Html.EditorFor(m => m.EditOrder.ShipCity)
+               </div>
+               <div class="form-group">
+                    <label>Shipping State</label>
+                    @Html.EditorFor(m => m.EditOrder.ShipState)
+               </div>
+               <div class="form-group">
+                    <label>Shipping Zip</label>
+                    @Html.EditorFor(m => m.EditOrder.ShipZip)
+               </div>
+          </div>
+     </div>
+
+     <input type="submit" id="submitform" value="Save" class="btn btn-sm btn-success" disabled />
+     @Html.ActionLink("Cancel", "Orders", "Home", new { @id = "" }, new { @class = "btn btn-sm btn-danger" })
+}
+
+<script>
+     $('#calculate').click(function () {
+          event.preventDefault();
+          var targeturl = '@Url.Action("CalculateOrder", "Home")';
+
+          //construct an AjaxOrder object from the form elements.
+          var order = JSON.stringify({
+                    ShipState: $('#EditOrder_ShipState').val(),
+               ShipZip: $('#EditOrder_ShipZip').val(),
+               Items: [{
+                    ProductRegPrice: $('#EditOrder_Items_0__Product_RegPrice').val(),
+                    ProductSpecPrice: $('#EditOrder_Items_0__Product_SpecPrice').val(),
+                    UnitPrice: $('#EditOrder_Items_0__UnitPrice').val().substring(1),
+                    Quantity: $('#EditOrder_Items_0__Quantity').val(),
+                    LineTotal: $('#EditOrder_Items_0__LineTotal').val().substring(1),
+               },
+               {
+                    ProductRegPrice: $('#EditOrder_Items_1__Product_RegPrice').val(),
+                    ProductSpecPrice: $('#EditOrder_Items_1__Product_SpecPrice').val(),
+                    UnitPrice: $('#EditOrder_Items_1__UnitPrice').val().substring(1),
+                    Quantity: $('#EditOrder_Items_1__Quantity').val(),
+                    LineTotal: $('#EditOrder_Items_1__LineTotal').val().substring(1),
+               }],
+               SpecialUnitPricing: $('#EditOrderSpecialUnitPricing').val(),
+               SpecialLinePricing: $('#EditOrder_SpecialLinePricing').val(),
+               Subtotal: $('#EditOrder_Subtotal').val().substring(1),
+               Tax: $('#EditOrder_Tax').val().substring(1),
+               ShipHand: $('#EditOrder_ShipHand').val().substring(1),
+               Adjustment: $('#EditOrder_Adjustment').val().substring(1),
+               Total: $('#EditOrder_Total').val().substring(1)
+          });
+
+          //send it and repopulate the form elements based on the response
+          $.ajax({
+                    url: targeturl,
+               type: 'POST',
+               contentType: 'application/json',
+               context: document.body,
+               data: order,
+               success: function (response) {
+                    $('#EditOrder_Items_0__UnitPrice').val('$' + response.Items[0].UnitPrice.toFixed(2));
+                    $('#EditOrder_Items_0__LineTotal').val('$' + response.Items[0].LineTotal.toFixed(2));
+                    $('#EditOrder_Items_1__UnitPrice').val('$' + response.Items[1].UnitPrice.toFixed(2));
+                    $('#EditOrder_Items_1__LineTotal').val('$' + response.Items[1].LineTotal.toFixed(2));
+                    $('#EditOrder_Subtotal').val('$' + response.Subtotal.toFixed(2));
+                    $('#EditOrder_Tax').val('$' + response.Tax.toFixed(2));
+                    $('#EditOrder_ShipHand').val('$' + response.ShipHand.toFixed(2));
+                    $('#EditOrder_Adjustment').val('$' + response.Adjustment.toFixed(2));
+                    $('#EditOrder_Total').val('$' + response.Total.toFixed(2));
+                    $('#submitform').removeAttr('disabled');
+                    }
+               });
+          });
+     $('#copy2shipping').click(function () {
+          event.preventDefault();
+          $('#EditOrder_ShipFirstName').val($('#EditOrder_Customer_FirstName').val());
+          $('#EditOrder_ShipLastName').val($('#EditOrder_Customer_LastName').val());
+          $('#EditOrder_ShipStreet').val($('#EditOrder_Customer_Street').val());
+          $('#EditOrder_ShipCity').val($('#EditOrder_Customer_City').val());
+          $('#EditOrder_ShipState').val($('#EditOrder_Customer_State').val());
+          $('#EditOrder_ShipZip').val($('#EditOrder_Customer_Zip').val());
+     });
+</script>

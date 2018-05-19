@@ -1,0 +1,72 @@
+﻿@model magnovault.Admin.ViewModels.HomeViewModel
+@{
+     ViewBag.Title = "Add Retail Contact";
+}
+
+<h2 class="page-header">Add Retail Contact</h2>
+
+@using (Html.BeginForm())
+{
+     <div class="form-group">
+          <label>Done</label>
+          @Html.EditorFor(m => m.NewRetailContact.Done)
+     </div>
+     <div class="form-group">
+          <label>Date</label>
+          @Html.EditorFor(m => m.NewRetailContact.OnDate)
+     </div>
+     <div class="form-group">
+          <label>First Name</label>
+          @Html.EditorFor(m => m.NewRetailContact.FirstName)
+     </div>
+     <div class="form-group">
+          <label>Last Name</label>
+          @Html.EditorFor(m => m.NewRetailContact.LastName)
+     </div>
+     <div class="form-group">
+          <label>Title</label>
+          @Html.EditorFor(m => m.NewRetailContact.Title)
+     </div>
+     <div class="form-group">
+          <label>Organization Name</label>
+          @Html.EditorFor(m => m.NewRetailContact.OrgName)
+     </div>
+     <div class="form-group">
+          <label>Organization Type</label>
+          @Html.EditorFor(m => m.NewRetailContact.OrgType)
+     </div>
+     <div class="form-group">
+          <label>Organization Website</label>
+          @Html.EditorFor(m => m.NewRetailContact.OrgWebsite)
+     </div>
+     <div class="form-group">
+          <label>City</label>
+          @Html.EditorFor(m => m.NewRetailContact.City)
+     </div>
+     <div class="form-group">
+          <label>State</label>
+          @Html.EditorFor(m => m.NewRetailContact.State)
+     </div>
+     <div class="form-group">
+          <label>Phone</label>
+          @Html.EditorFor(m => m.NewRetailContact.Phone)
+     </div>
+     <div class="form-group">
+          <label>Email</label>
+          @Html.EditorFor(m => m.NewRetailContact.Email)
+          <label>Best&nbsp;Method</label>
+          @Html.RadioButtonFor(m => m.NewRetailContact.BestMethod, "email") <span>email</span>
+          @Html.RadioButtonFor(m => m.NewRetailContact.BestMethod, "phone") <span>phone</span> <br />
+     </div>
+     <div class="form-group">
+          <label>How Heard</label>
+          @Html.EditorFor(m => m.NewRetailContact.HowHeard)
+     </div>
+     <div class="form-group">
+          <label>Message</label>
+          @Html.EditorFor(m => m.NewMediaContact.Message)
+     </div>
+
+     <input type="submit" value="Add" class="btn btn-sm btn-success" />
+     @Html.ActionLink("Cancel", "RetailContacts", "Home", null, new { @class = "btn btn-sm btn-danger" })
+}

@@ -1,0 +1,216 @@
+﻿@model magnovault.Site.ViewModels.HomeViewModel
+
+<div class="modal fade" id="checkout-modal">
+     <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+               <div class="modal-header">
+                    <div class="row">
+                         <div class="col-sm-2">
+                              <h3 class="modal-title">Checkout</h3>
+                         </div>
+
+                         <div class="col-sm-6">
+                              <span style="font-size:14px; font-weight:bold; font-style:italic; color:firebrick;">Secured by:</span>
+                              <img src="~/Content/authorize-net-logo.png" height="30" /><br />
+                         </div>
+
+                         <div class="col-sm-2" style="text-align:right;">
+                              @if (Request.IsAuthenticated)
+                              {
+                                   <p>Welcome, @User.Identity.Name</p>
+                              }
+                              else
+                              {
+                                   @Html.ActionLink("Log in", "Login", "Account")
+                                   <br />
+                                   @Html.ActionLink("Register as new user", "Register", "Account")
+                              }
+                         </div>
+
+                         <div class="col-sm-2">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Cancel">
+                                   <span aria-hidden="true" id="close-message">Cancel</span>
+                              </button>
+                         </div>
+                    </div>
+               </div>  @*modal-header*@
+
+               <div class="modal-body">
+                    <div class="row">
+                         <div class="col-lg-4 form-group">
+                              <h4 class="form-column-header">Order</h4>
+                              <hr />
+                              <table>
+                                   <tbody>
+                                        @for (int i = 0; i < Model.ProductCount; i++)
+                                        {
+                                             <tr class="order-item-row">
+                                                  <td>
+                                                       <img src="~/Content/chest2.png" height="75" alt="product" align="right" />
+                                                  </td>
+                                                  <td>
+                                                       <div style="font-weight:bold;">@Model.Order.Items[i].ProductName: @Model.Order.Items[i].ProductShortDescr</div>
+                                                       <div>
+                                                            <span>Price   : </span>
+                                                            <span id="item-@i-unitprice">
+                                                                 @Html.DisplayFor(m => m.Order.Items[i].UnitPrice)
+                                                            </span>
+                                                       </div>
+                                                       <div>
+                                                            <span>Quantity: </span>
+                                                            <span id="item-@i-quantity">
+                                                                 @Model.Order.Items[i].Quantity
+                                                            </span>
+                                                       </div>
+                                                  </td>
+                                                  <td class="order-price-amount" valign="bottom">
+                                                       @Html.HiddenFor(m => m.Order.Items[i].LineTotal)
+                                                       <span id="item-@i-linetotal">
+                                                            @Html.DisplayFor(m => m.Order.Items[i].LineTotal)
+                                                       </span>
+                                                  </td>
+                                             </tr>
+                                        }
+
+                                        @Html.HiddenFor(m => m.Order.Campaign)
+                                        <tr class="order-price-subtotal">
+                                             <td>&nbsp;</td>
+                                             <td class="order-price-label">Subtotal</td>
+                                             <td class="order-price-amount order-subtotal">
+                                                  @Html.DisplayFor(m => m.Order.Subtotal)
+                                             </td>
+                                        </tr>
+                                        <tr>
+                                             <td>&nbsp;</td>
+                                             <td class="order-price-label">S & H</td>
+                                             @Html.HiddenFor(m => m.Order.ShipHand)
+                                             <td class="order-price-amount" id="order-shiphand">
+                                                  @Html.DisplayFor(m => m.Order.ShipHand)
+                                             </td>
+                                        </tr>
+
+                                        <tr>
+                                             <td>&nbsp;</td>
+                                             <td class="order-price-label">Tax</td>
+                                             @Html.HiddenFor(m => m.Order.Tax)
+                                             <td class="order-price-amount" id="order-tax">
+                                                  @Html.DisplayFor(m => m.Order.Tax)
+                                             </td>
+                                        </tr>
+                                        <tr>
+                                             <td>&nbsp;</td>
+                                             <td class="order-price-label">Adjustment</td>
+                                             @Html.HiddenFor(m => m.Order.Adjustment)
+                                             <td class="order-price-amount" id="order-adjustment">
+                                                  @Html.DisplayFor(m => m.Order.Adjustment)
+                                             </td>
+                                        </tr>
+                                        <tr>
+                                             <td>&nbsp;</td>
+                                             <td class="order-price-label order-price-total">Total</td>
+                                             @Html.HiddenFor(m => m.Order.Total)
+                                             <td class="order-price-amount order-price-total" id="order-total">
+                                                  @Html.DisplayFor(m => m.Order.Total)
+                                             </td>
+                                        </tr>
+                                   </tbody>
+                              </table>
+                         </div>
+
+                         <div class="col-lg-3">
+                              <h4 class="form-column-header">Billing</h4>
+                              <hr />
+                              <div class="form-group">
+                                   <label class="order-form-label">First Name</label>
+                                   @Html.EditorFor(m => m.CreditCard.BillFirstName)
+                              </div>
+                              <div class="form-group">
+                                   <label class="order-form-label">Last Name</label>
+                                   @Html.EditorFor(m => m.CreditCard.BillLastName)
+                              </div>
+                              <div class="form-group">
+                                   <label class="order-form-label">Street</label>
+                                   @Html.EditorFor(m => m.CreditCard.BillStreet)
+                              </div>
+                              <div class="form-group">
+                                   <label class="order-form-label">City</label>
+                                   @Html.EditorFor(m => m.CreditCard.BillCity)
+                              </div>
+                              <div class="form-group">
+                                   <label class="order-form-label">State</label>
+                                   @Html.EditorFor(m => m.CreditCard.BillState)
+                              </div>
+                              <div class="form-group">
+                                   <label class="order-form-label">Zip</label>
+                                   @Html.EditorFor(m => m.CreditCard.BillZip)
+                              </div>
+                              <div class="form-group">
+                                   <label class="order-form-label">Card Number</label>
+                                   @Html.EditorFor(m => m.CreditCard.CardNumber)
+                              </div>
+                              <div class="form-group">
+                                   <label class="order-form-label">Exp MM/YY</label>
+                                   @Html.EditorFor(m => m.CreditCard.ExpMonth)
+                                   @Html.EditorFor(m => m.CreditCard.ExpYear)
+                              </div>
+                              <div class="form-group">
+                                   <label class="order-form-label">CVC Code</label>
+                                   @Html.EditorFor(m => m.CreditCard.CardCode)
+                              </div>
+                         </div>
+
+                         <div class="col-lg-3">
+                              <h4 class="form-column-header">Ship To</h4>
+                              <hr />
+                              <div class="form-group">
+                                   <button id="copy2shipping" style="margin-left:20px;">Ship to Billing Address</button>
+                              </div>
+                              <div class="form-group">
+                                   <label class="order-form-label">First Name</label>
+                                   @Html.EditorFor(m => m.Order.ShipFirstName)
+                              </div>
+                              <div class="form-group">
+                                   <label class="order-form-label">Last Name</label>
+                                   @Html.EditorFor(m => m.Order.ShipLastName)
+                              </div>
+                              <div class="form-group">
+                                   <label class="order-form-label">Street</label>
+                                   @Html.EditorFor(m => m.Order.ShipStreet)
+                              </div>
+                              <div class="form-group">
+                                   <label class="order-form-label">City</label>
+                                   @Html.EditorFor(m => m.Order.ShipCity)
+                              </div>
+                              <div class="form-group">
+                                   <label class="order-form-label">State</label>
+                                   @Html.EditorFor(m => m.Order.ShipState)
+                              </div>
+                              <div class="form-group">
+                                   <label class="order-form-label">Zip</label>
+                                   @Html.EditorFor(m => m.Order.ShipZip)
+                              </div>
+                         </div>
+
+                         <div class="col-lg-2 form-group">
+                              <h4 class="form-column-header">&nbsp;</h4>
+                              <hr />
+                              <p>Estimated Delivery @Model.DeliveryTime</p>
+                              <div id="order-action">
+                                   <input type="submit" value="Place Order" class="btn btn-sm btn-info" id="submit-order" style="margin-left:0;" disabled>
+                                   @if (Request.IsAuthenticated)
+                                   {
+                                        <button class="btn btn-sm btn-ghost" id="defer-order" style="margin-left:0;">Save for later</button>
+                                   }
+                              </div>
+                              <div id="modal-resolution" style="text-align:center; border:1px solid steelblue; margin-top:40px; padding:10px 5px" hidden>
+                                   <div id="response-message" style=" padding-bottom:10px;"></div>
+                                   <button type="button" class="btn btn-info" data-dismiss="modal" aria-label="Cancel">Close</button>
+                              </div>
+                         </div>
+
+                    </div> @*row*@
+               </div>  @*modal-body*@
+          </div>  @*modal-content*@
+     </div>  @*modal-dialog*@
+</div>  @*modal*@
+

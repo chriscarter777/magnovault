@@ -1,0 +1,153 @@
+﻿@model magnovault.Admin.ViewModels.HomeViewModel
+@{
+     ViewBag.Title = "Orders";
+}
+
+@if (Model.Orders.Length == 0)
+{
+     <h4>There are no Orders</h4>
+}
+else
+{
+     using (Html.BeginForm())
+     {
+          <table class="table table-striped table-bordered">
+               <caption>Orders</caption>
+               <thead>
+                    <tr>
+                         <th>Status</th>
+                         <th>Date</th>
+                         <th>Customer</th>
+                         <th>Ship To</th>
+                         <th>Items</th>
+                         <th>Amount</th>
+                         <th>Transaction</th>
+                         <th>&nbsp;</th>
+                    </tr>
+               </thead>
+               <tbody>
+                    @for (int i = 0; i < Model.Orders.Length; i++)
+                    {
+                         <tr>
+                              <td>
+                                   @if (Model.Orders[i].Deferred)
+                                   {
+                                        <p>Deferred by customer</p>
+                                   }
+                                   @Html.DisplayFor(m => m.Orders[i].Done) Done<br />
+                                   @Html.DisplayFor(m => m.Orders[i].Deferred) Deferred<br />
+                                   @Html.DisplayFor(m => m.Orders[i].Refunded) Refunded<br />
+                                   @if (Model.Orders[i].Campaign == null)
+                                   {
+                                        <span>No campaign</span>
+                                   }
+                                   else
+                                   {
+                                        <span>Campaign @Html.DisplayFor(m => m.Orders[i].Campaign)</span>
+                                   }
+                              </td>
+                              <td>@Html.DisplayFor(m => m.Orders[i].OnDate)</td>
+                              <td>
+                                   @Html.DisplayFor(m => m.Orders[i].FirstName)
+                                   @Html.DisplayFor(m => m.Orders[i].LastName)
+                                   <br />
+                                   @Html.DisplayFor(m => m.Orders[i].Street)
+                                   <br />
+                                   @Html.DisplayFor(m => m.Orders[i].City)
+                                   , @Html.DisplayFor(m => m.Orders[i].State)
+                                   &nbsp; @Html.DisplayFor(m => m.Orders[i].Zip)
+                                   <br />
+                                   @Html.DisplayFor(m => m.Orders[i].Phone)
+                                   @if (Model.Orders[i].BestMethod == "phone")
+                                   {
+                                        <span style="color: firebrick;"> *</span>
+                                   }
+                                   <br />
+                                   @Html.DisplayFor(m => m.Orders[i].Email)
+                                   @if (Model.Orders[i].BestMethod == "email")
+                                   {
+                                        <span style="color: firebrick;"> *</span>
+                                   }
+                              </td>
+                              <td>
+                                   @Html.DisplayFor(m => m.Orders[i].ShipFirstName)
+                                   @Html.DisplayFor(m => m.Orders[i].ShipLastName)
+                                   <br />
+                                   @Html.DisplayFor(m => m.Orders[i].ShipStreet)
+                                   <br />
+                                   @Html.DisplayFor(m => m.Orders[i].ShipCity)
+                                   , @Html.DisplayFor(m => m.Orders[i].ShipState)
+                                   &nbsp;@Html.DisplayFor(m => m.Orders[i].ShipZip)
+                              </td>
+                              <td>
+                                   <table>
+                                        @for (int j = 0; j < Model.Orders[i].Items.Count; j++)
+                                        {
+                                             @Html.HiddenFor(m => m.Orders[i].Items[j].ProductId)
+                                             <tr>
+                                                  <td>@Html.DisplayFor(m => m.Orders[i].Items[j].ProductName) &nbsp;</td>
+                                                  <td>@Html.DisplayFor(m => m.Orders[i].Items[j].ProductShortDescr) &nbsp;</td>
+                                                  <td>
+                                                       @Html.DisplayFor(m => m.Orders[i].Items[j].UnitPrice)
+                                                  </td>
+                                                  <td> x @Html.DisplayFor(m => m.Orders[i].Items[j].Quantity)</td>
+                                                  <td>
+                                                       = @Html.DisplayFor(m => m.Orders[i].Items[j].LineTotal)
+                                                  </td>
+                                             </tr>
+                                        }
+                                   </table>
+                              </td>
+                              <td style="line-height:14px;">
+                                   <label style="width:80px;">Subtotal: </label>@Html.DisplayFor(m => m.Orders[i].Subtotal)<br />
+                                   <label style="width:80px;">Tax:</label>@Html.DisplayFor(m => m.Orders[i].Tax)<br />
+                                   <label style="width:80px;">S&H:</label>@Html.DisplayFor(m => m.Orders[i].ShipHand)<br />
+                                   <label style="width:80px;">Adjust:</label>@Html.DisplayFor(m => m.Orders[i].Adjustment)<br />
+                                   <span style="border-top:1px solid lightgray;"><label style="width:80px;">Total:</label>@Html.DisplayFor(m => m.Orders[i].Total)</span>
+                              </td>
+                              <td>
+                                   <label>Card Last 4:</label>@Html.DisplayFor(m => m.Orders[i].CardLastFour)<br />
+                                   <label>Transactn Id:</label>@Html.DisplayFor(m => m.Orders[i].TransactionId)<br />
+                                   <label>Resp Code:</label>
+                                   @{
+                                        switch (Model.Orders[i].ResponseCode)
+                                        {
+                                             case "1":
+                                                  <span style="color:green">1 (Approved)</span>
+                                                  break;
+                                             case "2":
+                                                  <span style="color:red">2 (Declined)</span>
+                                                  break;
+                                             case "3":
+                                                  <span style="color:red">3 (Error)</span>
+                                                  break;
+                                             case "4":
+                                                  <span style="color:orange">4 (Held for processing)</span>
+                                                  break;
+                                             default:
+                                                  <span style="color:red">No valid response code</span>
+                                                  break;
+                                        }
+                                   }
+                                   <br />
+                                   <label>Auth Code:</label>@Html.DisplayFor(m => m.Orders[i].AuthorizationCode)
+                                   @*(@Html.DisplayFor(m => m.ResponseCodes[Int32.Parse(Model.Orders[i].AuthorizationCode)]))*@<br />
+                              </td>
+                              <td>
+                                   <input type="submit" value="Update" class="btn btn-xs btn-warning btn-margin" formaction='@Url.Action("Orders", "Home", new { id = Model.Orders[i].Id })' /><br />
+                                   @if (Model.Orders[i].ResponseCode == "1")
+                                   {
+                                        @Html.ActionLink("Refund", "RefundOrder", "Home", new { id = Model.Orders[i].Id }, new { @class = "btn btn-xs btn-info btn-margin", @onclick = "return confirm('Are you sure you want to REFUND this order?')" })<br />
+                                   }
+                                   else
+                                   {
+                                        @Html.ActionLink("Delete", "DeleteOrder", "Home", new { id = Model.Orders[i].Id }, new { @class = "btn btn-xs btn-danger btn-margin", @onclick = "return confirm('Are you sure you want to DELETE this order?')" })
+                                   }
+                              </td>
+                         </tr>
+                    } @*iteration*@
+               </tbody>
+          </table>
+     } @*end form*@
+     @Html.ActionLink("Add new order", "AddOrder", "Home", null, new { @class = "btn btn-sm btn-success" })
+}

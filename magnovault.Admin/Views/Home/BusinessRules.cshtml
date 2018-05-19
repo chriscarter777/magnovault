@@ -1,0 +1,40 @@
+﻿@model magnovault.Admin.ViewModels.HomeViewModel
+@{
+     ViewBag.Title = "Business Rules";
+}
+
+@if (Model.BusinessRules == null)
+{
+     <h2>BusinessRules</h2>
+     <h4>There are no Business Rules!</h4>
+}
+else
+{
+     using (Html.BeginForm())
+     {
+          <table class="table table-striped table-bordered">
+               <caption>Business Rules</caption>
+               <thead>
+                    <tr>
+                         <th>S&H Amount</th>
+                         <th>Apply S&H to each item</th>
+                         <th>Current Campaign</th>
+                         <th>Delivery Time</th>
+                         <th>&nbsp;</th>
+                    </tr>
+               </thead>
+               <tbody>
+                    @Html.HiddenFor(m => m.BusinessRules.Id)
+                    <tr>
+                         <td>@Html.EditorFor(m => m.BusinessRules.ShipHandAmount)</td>
+                         <td>@Html.EditorFor(m => m.BusinessRules.ShipHandPerItem)</td>
+                         <td>@Html.EditorFor(m => m.BusinessRules.CurrentCampaign)</td>
+                         <td>@Html.EditorFor(m => m.BusinessRules.DeliveryTime)</td>
+                         <td>
+                              <input type="submit" value="Update" class="btn btn-xs btn-info" onclick="return confirm('Are you sure you want to update the business rules?')" />
+                         </td>
+                    </tr>
+               </tbody>
+          </table>
+     }  /*end form*/
+}

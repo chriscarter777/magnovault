@@ -1,0 +1,22 @@
+﻿@{
+     ViewBag.Title = "MagnoVault Admin";
+}
+
+<div class="jumbotron">
+     <img src="~/Content/Logo_2in.png" class="nav-logo" alt="logo" /><span style="font-size:48px; font-weight:700; position:relative; top:15px;"> Administration</span>
+</div>
+
+<div class="row">
+     <div class="col-md-12 action-buttons">
+          @Html.ActionLink("Products", "Products", "Home", null, new { @class = "btn btn-info" })<br />
+          @Html.ActionLink("Customers", "Customers", "Home", null, new { @class = "btn btn-info" })<br />
+          @Html.ActionLink("Orders", "Orders", "Home", null, new { @class = "btn btn-info" })<br />
+          @Html.ActionLink("Investor Contact Requests", "InvestorContacts", "Home", null, new { @class = "btn btn-info" })<br />
+          @Html.ActionLink("Media Contact Requests", "MediaContacts", "Home", null, new { @class = "btn btn-info" })<br />
+          @Html.ActionLink("Public Contact Requests", "PublicContacts", "Home", null, new { @class = "btn btn-info" })<br />
+          @Html.ActionLink("Retail Contact Requests", "RetailContacts", "Home", null, new { @class = "btn btn-info" })<br />
+          @Html.ActionLink("Business Rules", "BusinessRules", "Home", null, new { @class = "btn btn-info" })<br />
+          @Html.ActionLink("Tax Rates", "TaxRates", "Home", null, new { @class = "btn btn-info" })<br />
+          @Html.ActionLink("authorize.net sandbox", "AuthorizeNetSandbox", "Home", null, new { @class = "btn btn-warning" })<br />
+     </div>
+</div>

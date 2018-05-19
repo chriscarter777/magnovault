@@ -1,0 +1,64 @@
+﻿@model magnovault.Site.ViewModels.HomeViewModel
+
+<div class="modal fade" id="prod_0-fs">
+     <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+               <div class="modal-header">
+                    <h3 class="modal-title">
+                         @Model.Products[0].Name: @Model.Products[0].ShortDescr
+                         <button class="close" data-dismiss="modal" aria-label="Cancel">
+                              <span aria-hidden="true">&times;</span>
+                         </button>
+                    </h3>
+               </div>  @*modal-header*@
+
+               <div class="modal-body">
+                    <div class="row product-details">
+                         <div class="col-sm-6 product-features">
+                              <h4>Features:</h4>
+                              <ul>
+                                   <li>Tamper resistant</li>
+                                   <li>Container-to-site secured</li>
+                                   <li>Auto-locking container access</li>
+                                   <li>Remote control locking</li>
+                                   <li>Hidden locking mechanism</li>
+                                   <li>Rubber feet to prevent contact with water</li>
+                                   <li>Unfinished and weather resistant options</li>
+                                   <li>No Assembly required</li>
+                                   <li>No external power connection necessary</li>
+                                   <li>Inconspicuous, attractive design</li>
+                                   <li>Ease-of-use and simple design</li>
+                                   <li>Limited Warranty</li>
+                                   <li>Local manufacturing and service</li>
+                              </ul>
+                         </div>
+
+                         <div class="col-sm-6 product-specs">
+                              <h4>Specifications:</h4>
+                              <h5>Inner Dimensions (LxWxH)</h5>
+                              <h6>33"x18"x18"</h6>
+                              <h5>Inner Load Limit</h5>
+                              <h6>60 pounds</h6>
+                              <h5>Outer Dimensions (LxWxH)</h5>
+                              <h6>37"x24"x24"</h6>
+                              <h5>Lid Load Limit</h5>
+                              <h6>200 pounds</h6>
+                              <h5>Product Weight</h5>
+                              <h6>42 pounds</h6>
+                              <h5>Exterior Composition</h5>
+                              <h6>Wood</h6>
+                              <h5>Interior Composition</h5>
+                              <h6>Extruded Metal Frame</h6>
+                              <h6>Metal lining</h6>
+                              <h5>Locking Mechanism</h5>
+                              <h6>12-volt battery required (included)</h6>
+                              <h5>Remote Control</h5>
+                              <h6>Engage and disengage locking mechanism up to 20 feet away</h6>
+                              <h6>NiCd battery required (included)</h6>
+                         </div>
+                    </div> @*row*@
+               </div>  @*modal-body*@
+          </div>  @*modal-content*@
+     </div>  @*modal-dialog*@
+</div>  @*modal*@
+

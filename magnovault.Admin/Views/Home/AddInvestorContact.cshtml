@@ -1,0 +1,58 @@
+﻿@model magnovault.Admin.ViewModels.HomeViewModel
+@{
+     ViewBag.Title = "Add Investor Contact";
+}
+
+<h2 class="page-header">Add Investor Contact</h2>
+
+@using (Html.BeginForm())
+{
+     <div class="form-group">
+          <label>Done</label>
+          @Html.EditorFor(m => m.NewInvestorContact.Done)
+     </div>
+     <div class="form-group">
+          <label>Date</label>
+          @Html.EditorFor(m => m.NewInvestorContact.OnDate)
+     </div>
+     <div class="form-group">
+          <label>First Name</label>
+          @Html.EditorFor(m => m.NewInvestorContact.FirstName)
+     </div>
+     <div class="form-group">
+          <label>Last Name</label>
+          @Html.EditorFor(m => m.NewInvestorContact.LastName)
+     </div>
+     <div class="form-group">
+          <label>Title</label>
+          @Html.EditorFor(m => m.NewInvestorContact.Title)
+     </div>
+     <div class="form-group">
+          <label>Organization</label>
+          @Html.EditorFor(m => m.NewInvestorContact.Organization)
+     </div>
+     <div class="form-group">
+          <label>Phone</label>
+          @Html.EditorFor(m => m.NewInvestorContact.Phone)
+     </div>
+     <div class="form-group">
+          <label>Email</label>
+          @Html.EditorFor(m => m.NewInvestorContact.Email)
+     </div>
+     <div class="form-group">
+          <label>Best&nbsp;Method</label>
+          @Html.RadioButtonFor(m => m.NewInvestorContact.BestMethod, "email") <span>email</span>
+          @Html.RadioButtonFor(m => m.NewInvestorContact.BestMethod, "phone") <span>phone</span> <br />
+     </div>
+     <div class="form-group">
+          <label>How Heard</label>
+          @Html.EditorFor(m => m.NewInvestorContact.HowHeard)
+     </div>
+     <div class="form-group">
+          <label>Investment Type</label>
+          @Html.EditorFor(m => m.NewInvestorContact.InvestType)
+     </div>
+
+     <input type="submit" value="Add" class="btn btn-sm btn-success" />
+     @Html.ActionLink("Cancel", "InvestorContacts", "Home", null, new { @class = "btn btn-sm btn-danger" })
+}
