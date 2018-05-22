@@ -28,5 +28,16 @@ namespace magnovault.Models
           public int ExpYear { get; set; }
           public string CardCode { get; set; }
 
+          public CreditCard() { }
+
+          public CreditCard(Customer currentCustomer)
+          {
+               BillFirstName = currentCustomer.FirstName;
+               BillLastName = currentCustomer.LastName;
+               BillStreet = currentCustomer.Street;
+               BillCity = currentCustomer.City;
+               BillState = currentCustomer.State;
+               BillZip = currentCustomer.Zip;
+          }
      }
 }

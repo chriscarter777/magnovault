@@ -45,6 +45,7 @@ namespace magnovault.Site.Controllers
                     {
                          model.Order = deferredOrder;
                     }
+                    model.CreditCard = new CreditCard(model.CurrentCustomer);
                }
                else
                {

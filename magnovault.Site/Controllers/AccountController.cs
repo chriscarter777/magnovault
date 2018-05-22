@@ -149,7 +149,18 @@ namespace magnovault.Site.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser {
+                     FirstName = model.FirstName,
+                     LastName = model.LastName,
+                     Street = model.Street,
+                     City = model.City,
+                     State = model.State,
+                     Zip = model.Zip,
+                     PhoneNumber = model.PhoneNumber,
+                     BestMethod = model.BestMethod,
+                     UserName = model.Email,
+                     Email = model.Email
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
