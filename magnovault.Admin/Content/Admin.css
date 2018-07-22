@@ -1,4 +1,5 @@
-﻿body {
+﻿/*SASS Variables*/
+body {
   padding-top: 50px;
   padding-bottom: 20px; }
 
@@ -90,7 +91,7 @@ td {
   margin: 5px 0 10px 10px; }
 
 .form-group > label {
-  width: 100px; }
+  width: 80px; }
 
 .plain {
   border: none;
@@ -102,4 +103,7 @@ td {
 
 .btn-margin {
   margin: 4px; }
+
+.label-like {
+  font-weight: bold; }
 

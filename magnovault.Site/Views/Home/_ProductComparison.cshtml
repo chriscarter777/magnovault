@@ -1,0 +1,126 @@
+﻿@model magnovault.Site.ViewModels.HomeViewModel
+
+<div class="modal fade" id="prod-compare">
+     <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+               <div class="modal-header">
+                    <h3 class="modal-title">
+                         Feature Comparison
+                         <button class="close" data-dismiss="modal" aria-label="Cancel">
+                              <span aria-hidden="true">&times;</span>
+                         </button>
+                    </h3>
+               </div>  @*modal-header*@
+
+               <div class="modal-body">
+<table class="table table-striped table-bordered">
+     <thead>
+          <tr>
+               <td>&nbsp;</td>
+               <td style="text-align:center;">
+                    <img src="@Model.Products[0].ImagePath" />
+               </td>
+               <td style="text-align:center;">
+                    <img src="@Model.Products[1].ImagePath" />
+               </td>
+          </tr>
+          <tr>
+               <td>Features:</td>
+               <td style="text-align:center;">ProTech</td>
+               <td style="text-align:center;">ProTech Plus</td>
+          </tr>
+     </thead>
+     <tbody>
+          <tr>
+               <td>Waterproof Maintenance-free Exterior</td>
+               <td style="text-align:center;">&times;</td>
+               <td style="text-align:center;">&times;</td>
+          </tr>
+          <tr>
+               <td>Waterproof Interior Membrane</td>
+               <td style="text-align:center;">&times;</td>
+               <td style="text-align:center;">&times;</td>
+          </tr>
+          <tr>
+               <td>Clean-out Drain w/ Plug</td>
+               <td style="text-align:center;">&times;</td>
+               <td style="text-align:center;">&times;</td>
+          </tr>
+          <tr>
+               <td>
+                    Bench Seating
+                    (lid able to hold up to two adults with  a combined weight of up to 350 pounds)
+               </td>
+               <td style="text-align:center;">&times;</td>
+               <td style="text-align:center;">&times;</td>
+          </tr>
+          <tr>
+               <td>
+                    Heavy-duty Torsion Hinges
+                    (lid maintains open position at any angle)
+               </td>
+               <td style="text-align:center;">&times;</td>
+               <td style="text-align:center;">&times;</td>
+          </tr>
+          <tr>
+               <td>
+                    Storage Area
+                    (4.40 cubic feet)
+                    (150 pound weight capacity)
+               </td>
+               <td style="text-align:center;">&times;</td>
+               <td style="text-align:center;">&times;</td>
+          </tr>
+          <tr>
+               <td>
+                    Rubber Lid Gasket
+                    (helps insulate contents from
+                    external ambient temperatures)
+               </td>
+               <td style="text-align:center;">&times;</td>
+               <td style="text-align:center;">&times;</td>
+          </tr>
+          <tr>
+               <td>Rubber Feet</td>
+               <td style="text-align:center;">&times;</td>
+               <td style="text-align:center;">&times;</td>
+          </tr>
+          <tr>
+               <td>Automatic Child-safety Lock</td>
+               <td style="text-align:center;">&nbsp;</td>
+               <td style="text-align:center;">&times;</td>
+          </tr>
+          <tr>
+               <td>
+                    12-volt Rechargeable Battery
+                    Easy Access Compartment
+                    Battery Charger
+               </td>
+               <td style="text-align:center;">&nbsp;</td>
+               <td style="text-align:center;">&times;</td>
+          </tr>
+          <tr>
+               <td>
+                    Built-in Relay Unit
+                    w/ Remote Controls (2)
+                    (for unlocking)
+               </td>
+               <td style="text-align:center;">&nbsp;</td>
+               <td style="text-align:center;">&times;</td>
+          </tr>
+          <tr>
+               <td>
+                    Anchoring Eye-bolt
+                    (for securing vault to site)
+               </td>
+               <td style="text-align:center;">&nbsp;</td>
+               <td style="text-align:center;">&times;</td>
+          </tr>
+     </tbody>
+</table>
+               </div>  @*modal-body*@
+          </div>  @*modal-content*@
+     </div>  @*modal-dialog*@
+</div>  @*modal*@
+
+

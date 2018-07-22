@@ -20,7 +20,7 @@ namespace magnovault.Utilities
                return order;
           }  //CalculateOrder
 
-          private static AjaxOrderItem CalculateOrderItem(AjaxOrderItem item, int? camapaign, BusinessRules rules)
+          private static AjaxOrderItem CalculateOrderItem(AjaxOrderItem item, int? campaign, BusinessRules rules)
           {
                //this method allows special line item pricing to be applied based on AjaxOrder.campaign or Business Rules (no implementation currently).
                item.LineTotal = item.UnitPrice * item.Quantity;

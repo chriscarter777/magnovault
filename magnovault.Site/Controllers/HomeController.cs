@@ -36,6 +36,7 @@ namespace magnovault.Site.Controllers
                     model.MediaContact = new MediaContact(model.CurrentCustomer);
                     model.PublicContact = new PublicContact(model.CurrentCustomer);
                     model.RetailContact = new RetailContact(model.CurrentCustomer);
+                    model.VideoLink = ConfigurationManager.AppSettings["VideoLink"];
                     ViewOrder deferredOrder = await repository.GetDeferredOrderAsync(currentUserId);
                     if (deferredOrder == null)
                     {
@@ -130,6 +131,10 @@ namespace magnovault.Site.Controllers
                model.Order.AuthorizationCode = model.AuthorizationCode;
                repository.AddOrderAsync(model.Order, false);
 
+               string subject = "New MagnoVault order";
+               string content = "<p>A new order was submitted:</p><p>" + model.Order.ShipFirstName + " " + model.Order.ShipLastName + "</p><p> + " + linecount + " line items totalling $" + model.Order.Total + "</p>";
+               SendEmail(subject, content);
+
                //return the response from the gateway
                return model.ResponseCode;
           }
@@ -139,6 +144,9 @@ namespace magnovault.Site.Controllers
           public string SubmitInvestorContact(InvestorContact contact)
           {
                repository.AddInvestorContactAsync(contact, false);
+               string subject = "New MagnoVault order";
+               string content = "<p>A new investor contact was submitted:</p><p>" + contact.FirstName + " " + contact.LastName + "</p><p> + " + contact.Title + ", " + contact.Organization + "(" + contact.InvestType + ")" + "</p><p>" + contact.City + ", " + contact.State + "</p><p>" + contact.Phone + "</p><p>" + contact.Email + "</p><p>Prefers: " + contact.BestMethod + "</p>";
+               SendEmail(subject, content);
                return "Thank you for your interest in MagnoVault.  Your request has been submitted, and we will be pleased to get back to you shortly!";
           }
           #endregion
@@ -147,6 +155,9 @@ namespace magnovault.Site.Controllers
           public string SubmitMediaContact(MediaContact contact)
           {
                repository.AddMediaContactAsync(contact, false);
+               string subject = "New MagnoVault order";
+               string content = "<p>A new media contact was submitted:</p><p>" + contact.FirstName + " " + contact.LastName + "</p><p> + " + contact.Title + ", " + contact.Organization+ "</p><p>" + contact.City + ", " + contact.State + "</p><p>" + contact.Phone + "</p><p>" + contact.Email + "</p><p>Prefers: " + contact.BestMethod + "</p><p>" + contact.Message + "</p>";
+               SendEmail(subject, content);
                return "Thank you for your interest in MagnoVault.  Your request has been submitted, and we will be pleased to get back to you shortly!";
           }
           #endregion
@@ -155,6 +166,9 @@ namespace magnovault.Site.Controllers
           public string SubmitPublicContact(PublicContact contact)
           {
                repository.AddPublicContactAsync(contact, false);
+               string subject = "New MagnoVault order";
+               string content = "<p>A new public contact was submitted:</p><p>" + contact.FirstName + " " + contact.LastName + "</p><p>" + contact.City + ", " + contact.State + "</p><p>" + contact.Phone + "</p><p>" + contact.Email + "</p><p>Prefers: " + contact.BestMethod + "</p><p>" + contact.Message + "</p>";
+               SendEmail(subject, content);
                return "Thank you for your interest in MagnoVault.  Your request has been submitted, and we will be pleased to get back to you shortly!";
           }
           #endregion
@@ -163,9 +177,24 @@ namespace magnovault.Site.Controllers
           public string SubmitRetailContact(RetailContact contact)
           {
                repository.AddRetailContactAsync(contact, false);
+               string subject = "New MagnoVault order";
+               string content = "<p>A new retail contact was submitted:</p><p>" + contact.FirstName + " " + contact.LastName + "</p><p> + " + contact.Title + ", " + contact.OrgName + "(" + contact.OrgType + ": " + contact.OrgWebsite + ")" + "</p><p>" + contact.City + ", " + contact.State + "</p><p>" + contact.Phone + "</p><p>" + contact.Email + "</p><p>Prefers: " + contact.BestMethod + "</p><p>" + contact.Message + "</p>";
+               SendEmail(subject, content);
+               Emailer mailer = new Emailer();
                return "Thank you for your interest in MagnoVault.  Your request has been submitted, and we will be pleased to get back to you shortly!";
           }
           #endregion
+
+          private void SendEmail (string subject, string content)
+          {
+               Emailer mailer = new Emailer();
+               string mailhost = ConfigurationManager.AppSettings["emailHost"];
+               int mailport = Int32.Parse(ConfigurationManager.AppSettings["emailPort"]);
+               string mailpassword = ConfigurationManager.AppSettings["emailPassword"];
+               string mailfrom = ConfigurationManager.AppSettings["emailFrom"];
+               string mailto = ConfigurationManager.AppSettings["emailTo"];
+               mailer.SendMail(mailhost, mailport, mailpassword, mailfrom, mailto, subject, content);
+          }
 
      }  //controller
 }  //namespace

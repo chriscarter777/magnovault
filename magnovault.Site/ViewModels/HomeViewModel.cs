@@ -10,9 +10,7 @@ namespace magnovault.Site.ViewModels
      {
           public Customer CurrentCustomer { get; set; }
           public InvestorContact InvestorContact { get; set; }
-          public string InvestorFeedback { get; set; }
           public MediaContact MediaContact { get; set; }
-          public string MediaFeedback { get; set; }
           public ViewOrder Order { get; set; }
           public CreditCard CreditCard { get; set; }
           public string ResponseCode { get; set; }
@@ -22,10 +20,9 @@ namespace magnovault.Site.ViewModels
           public Product[] Products { get; set; }
           public int ProductCount { get; set; }
           public PublicContact PublicContact { get; set; }
-          public string PublicFeedback { get; set; }
           public RetailContact RetailContact { get; set; }
-          public string RetailFeedback { get; set; }
 
           public string DeliveryTime { get; set; }
+          public string VideoLink { get; set; }
      }  //class
 }  //namespace

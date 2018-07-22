@@ -35,8 +35,8 @@ else
                               <td>@Html.EditorFor(m => m.Products[i].ShortDescr)</td>
                               <td>@Html.EditorFor(m => m.Products[i].LongDescr)</td>
                               <td>@Html.EditorFor(m => m.Products[i].ImagePath)</td>
-                              <td><img src="@Model.Products[i].ImagePath" height="100" alt="Product Image" /></td>
-                              <td>@Html.EditorFor(m => m.Products[i].Price)</td>
+                              <td><img src="@Model.Products[i].ImagePath" height="80" alt="Product Image" /></td>
+                              <td>$@Html.EditorFor(m => m.Products[i].Price)</td>
                               <td>
                                    <input type="submit" value="Update" class="btn btn-xs btn-warning" formaction='@Url.Action("Products", "Home", new { id = i })' onclick="return confirm('Are you sure you want to update this record?')" />
                                    @Html.ActionLink("Delete", "DeleteProduct", "Home", new { id = Model.Products[i].Id }, new { @class = "btn btn-xs btn-danger", @onclick = "return confirm('Are you sure you want to DELETE this record?')" })

@@ -51,27 +51,45 @@ body {
   font-family: sans-serif; }
 
 .component {
-  min-height: 100vh;
-  background: #fcfadd;
-  padding: 50px 20px 20px 20px; }
+  min-height: calc(100vh - 90px);
+  background: #ccd0d1; }
 
 header {
   margin: 60px 0 30px 0;
   text-align: center; }
 
-.top-content {
-  padding-top: 40px; }
+.article-content {
+  padding: 0 20px; }
+
+.titletron {
+  background: #2f5496;
+  padding: 20px;
+  margin-bottom: 40px; }
 
 .page-title {
   font-size: 32px;
   font-weight: 700;
-  color: #3d3d3d;
-  margin: 0; }
+  font-variant: small-caps;
+  color: #fff;
+  margin: 20px 0 0 0; }
 
-.page-subtitle {
-  font-size: 22px;
+.super-byline {
+  font-size: 32px;
+  font-weight: 700;
+  font-variant: small-caps;
+  color: #fff;
+  margin: 0 0 20px 0; }
+
+.sub-byline {
+  font-size: 24px;
   font-style: italic;
-  color: #3b689a; }
+  color: #fff; }
+
+.trademark {
+  font-size: 60%;
+  position: relative;
+  top: 7px;
+  left: -5px; }
 
 .vidsurv-badge {
   text-align: center; }
@@ -85,7 +103,7 @@ header {
 .adspace {
   height: 100px;
   width: 94%;
-  margin: 50px 3% 0 3%;
+  margin: 40px 3% 0 3%;
   padding: 40px 0 0 0;
   text-align: center;
   border: 1px solid goldenrod;
@@ -104,8 +122,7 @@ header {
   text-align: center; }
 
 .privacy-statement {
-  text-align: center;
-  margin: 40px auto; }
+  text-align: center; }
 
 .privacy-header {
   color: firebrick;
@@ -116,7 +133,12 @@ header {
 footer {
   text-align: center;
   color: #3b689a;
-  background-color: #fcfadd; }
+  background-color: #ccd0d1; }
+
+thead {
+  font-weight: bold;
+  color: darkblue;
+  background-color: #def; }
 
 /*--------------------------------------------------*/
 /*Products*/
@@ -138,8 +160,7 @@ footer {
 /*--------------------------------------------------*/
 /*Forms*/
 .contact-form {
-  border: 1px solid #3b689a;
-  padding: 10px; }
+  padding: 10px 50px; }
 
 .contact-form label {
   width: 170px;
@@ -181,7 +202,7 @@ input[type="phone"] {
 input[type="radio"] {
   margin: 0 25px 0 5px; }
 
-input[type="text"] {
+.standard-input {
   width: 200px;
   border: 1px solid #3b689a;
   border-radius: 3px; }
@@ -217,13 +238,13 @@ input[type="text"].text-long {
 .about-copy {
   font-size: 18px;
   color: #3b689a;
-  margin: 50px 10%; }
+  margin: 80px 8%; }
 
 /*--------------------------------------------------*/
 /*FAQ Article*/
 .faq-item {
   margin: 15px 0 0 5px;
-  background: #f0eaaa; }
+  background: #f0daaa; }
 
 .faq-question {
   font-size: 24px;
@@ -244,8 +265,9 @@ input[type="text"].text-long {
   padding: 20px 40px;
   font-weight: 700;
   line-height: 40px;
-  background-color: #f0eaaa;
-  border-radius: 50px; }
+  background-color: #f0daaa;
+  border-radius: 50px;
+  text-align: left; }
 
 .product-details {
   text-align: left;
@@ -295,6 +317,15 @@ input[type="text"].text-long {
 /*--------------------------------------------------*/
 /*Contacts*/
 address {
-  font-size: 18px;
-  color: #3b689a; }
+  font-size: 24px;
+  color: #ffffff;
+  font-variant: small-caps;
+  padding-top: 10px; }
+
+.acknowledgement {
+  margin-left: 220px;
+  color: green;
+  padding: 10px;
+  font-style: italic;
+  font-size: 14px; }
 

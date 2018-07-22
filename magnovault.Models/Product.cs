@@ -14,7 +14,7 @@ namespace magnovault.Models
           public string ImagePath { get; set; }
 
           [DataType(DataType.Currency)]
-          [DisplayFormat(DataFormatString = "{0:c}", ApplyFormatInEditMode = true)]
+          [DisplayFormat(DataFormatString = "{0:0.00}", ApplyFormatInEditMode = true)]
           public decimal Price { get; set; }
      }
 }

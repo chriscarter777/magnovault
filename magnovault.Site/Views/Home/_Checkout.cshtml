@@ -29,7 +29,7 @@
 
                          <div class="col-sm-2">
                               <button type="button" class="close" data-dismiss="modal" aria-label="Cancel">
-                                   <span aria-hidden="true" id="close-message">Cancel</span>
+                                   <span aria-hidden="true" id="close-checkout">Cancel</span>
                               </button>
                          </div>
                     </div>
@@ -44,9 +44,9 @@
                                    <tbody>
                                         @for (int i = 0; i < Model.ProductCount; i++)
                                         {
-                                             <tr class="order-item-row">
+                                             <tr class="order-item-row" hidden>
                                                   <td>
-                                                       <img src="~/Content/chest2.png" height="75" alt="product" align="right" />
+                                                       <img src="@Model.Products[i].ImagePath" height="75" alt="product" align="right" />
                                                   </td>
                                                   <td>
                                                        <div style="font-weight:bold;">@Model.Order.Items[i].ProductName: @Model.Order.Items[i].ProductShortDescr</div>
@@ -58,7 +58,7 @@
                                                        </div>
                                                        <div>
                                                             <span>Quantity: </span>
-                                                            <span id="item-@i-quantity">
+                                                            <span id="item-@i-quantity" class="order-item-quantity">
                                                                  @Model.Order.Items[i].Quantity
                                                             </span>
                                                        </div>

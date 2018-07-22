@@ -91,41 +91,40 @@
                     @Html.HiddenFor(m => m.EditOrder.Items[j].ProductShortDescr)
                     @Html.HiddenFor(m => m.EditOrder.Items[j].ProductImagePath)
                     <div class="form-group">
-                         <label>@Model.EditOrder.Items[j].ProductName,</label>
-                         <label>@Model.EditOrder.Items[j].ProductShortDescr</label>
+                         <p class="label-like">@Model.EditOrder.Items[j].ProductName, @Model.EditOrder.Items[j].ProductShortDescr</p>
                     </div>
                     <div class="form-group">
                          <label>Quantity</label>
                          @Html.EditorFor(m => m.EditOrder.Items[j].Quantity)
                          <br />
                          <label>Unit Price</label>
-                         @Html.TextBoxFor(m => m.EditOrder.Items[j].UnitPrice, "{0:$0.00}", new { @class = "plain" })
+                         @Html.TextBoxFor(m => m.EditOrder.Items[j].UnitPrice, "{0:c}", new { @class = "plain" })
                          <br />
                          <label>Line Total</label>
-                         @Html.TextBoxFor(m => m.EditOrder.Items[j].LineTotal, "{0:$0.00}", new { @class = "plain" })
+                         @Html.TextBoxFor(m => m.EditOrder.Items[j].LineTotal, "{0:c}", new { @class = "plain" })
                          <hr />
                     </div>
                }
                <div class="form-group" style="line-height:14px;">
-                    <span style="display:inline-block; width:140px; text-align:right;">Campaign</span>
+                    <span class="label-like">Campaign</span>
                     @Html.EditorFor(m => m.EditOrder.Campaign)
                     <br />
                     <br />
                     <button id="calculate" class="btn btn-sm btn-info" style="float:right;">Calculate</button>
                     <label>SubTotal</label>
-                    @Html.TextBoxFor(m => m.EditOrder.Subtotal, "{0:$0.00}", new { @class = "plain" })
+                    @Html.TextBoxFor(m => m.EditOrder.Subtotal, "{0:c}", new { @class = "plain" })
                     <br />
                     <label>Tax</label>
-                    @Html.TextBoxFor(m => m.EditOrder.Tax, "{0:$0.00}", new { @class = "plain" })
+                    @Html.TextBoxFor(m => m.EditOrder.Tax, "{0:c}", new { @class = "plain" })
                     <br />
                     <label>S & H</label>
-                    @Html.TextBoxFor(m => m.EditOrder.ShipHand, "{0:$0.00}", new { @class = "plain" })
+                    @Html.TextBoxFor(m => m.EditOrder.ShipHand, "{0:c}", new { @class = "plain" })
                     <br />
                     <label>Adjustment</label>
-                    @Html.TextBoxFor(m => m.EditOrder.Adjustment, "{0:$0.00}")
+                    @Html.TextBoxFor(m => m.EditOrder.Adjustment, "{0:c}")
                     <hr class="total" />
                     <label>Total</label>
-                    @Html.TextBoxFor(m => m.EditOrder.Total, "{0:$0.00}", new { @class = "plain" })
+                    @Html.TextBoxFor(m => m.EditOrder.Total, "{0:c}", new { @class = "plain" })
                </div>
           </div>
 

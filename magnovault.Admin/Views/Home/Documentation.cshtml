@@ -7,57 +7,58 @@
 <h5 style="color:green;">MagnoVault website, administration, and database created by</h5>
 <address>
      Christopher Carter<br />
-     Perficiat<br />
+     <span style="font-family:'Engravers MT';">Perficiat</span><br />
      Portland, OR<br />
      christopher.carter.777@gmail.com<br />
      (503) 407-9500<br />
 </address>
 
-<h3 class="documentation-header">Front End</h3>
+<h3 class="documentation-header">Shared Projects</h3>
 <section>
-     <h4>magnovaultsite</h4>
-     <p>The website is built as a SPA using pure ASP.NET Framework 4.6.  All page logic is contained in <b>magnovaultsite.Scripts.magnovaultSiteScripting.js</b></p>
-     <p></p>It accesses data from the database from both the server and client sides (via AJAX) via calls to magnovaultapi, which pass through <b>ApiClient</b>.</p>
-     <p>Both <b>magnovaultsite</b> and <b>magnovultadmin</b> have their own version of <b>ApiClient</b>, but both implement <b>magnovault.Models.IApiClient</b>.</p>
-</section>
-
-<h3 class="documentation-header">Back End</h3>
-<section>
+     <h4>magnovault.AuthorizeNet</h4>
+     <p>Contains the classes necessary to submit and refund charges via Authorize.Net</p>
+     <p>The authorization keys are not found here, however: they are held in Web.config (duplicated in .Admin and .Site), so are passed to the functions from the caller.</p>
+     <p>To avoid a naming collision, the namespace for magnovault.AuthorizeNet is actually magnovault.Authorize.Net</p>
+     <h4>magnovault.Data</h4>
+     <p>Contains:</p>
+     <ul>
+          <li><b>ApplicationDbContext</b>: the database context for the Microsoft Identity store</li>
+          <li><b>DataDbContext</b>: the database context for the application's domain data</li>
+          <li><b>MagnovaultDbRepository</b>: the repository class interacting with the domain data</li>
+     </ul>
      <h4>magnovault.Models</h4>
-     <p>This class library defines the domain models shared by the admin, api and test projects.</p>
-     <p>The database entity <b>OrderItem</b> is returned by <b>magnovaultapi</b> as a <b>ViewOrderItem</b> class for consumption by<b> magnovault</b> and <b>magnovaultadmin</b>.  This occurs in <b>magnovaultapi.ValuesController</b></p>
+     <p>All shared models are found here, including the ApplicationUser which implements IdentityUser</p>
+     <p>Note there are three versions of Order and OrderItem:</p>
      <ul>
-          <li><code>(int)OrderItem.ProductId</code> ==> <code>(Product)ViewOrderItem.Product</code>.</li>
+          <li>The base class, <b>Order</b>, represents the database objects.</li>
+          <li><b>ViewOrder</b> is the class returned by the repository and ultimately sent to the view.  To the base class, it adds information joined from other tables.</li>
+          <li><b>AjaxOrder</b> is a stripped-down version containing only information required for the AJAX call to calculate the order subtotal.</li>
      </ul>
-     <p>The database entity <b>Order</b> is returned by magnovaultapi as a <b>ViewOrder</b> class for consumption by magnovault and magnovaultadmin.  This occurs in magnovaultapi.ValuesController</p>
+     <h4>magnovault.Utilities</h4>
+     <p>Contains:</p>
      <ul>
-          <li><code>(int)Order.CustomerId</code> ==> <code>(Customer)ViewOrder.Customer</code>, and ViewOrder contains an embedded <code>List(ViewOrderItem)</code> <b>Items</b>.</li>
-     </ul>
-     Dependencies:
-     <ul>
-          <li>System.ComponentModel.DataAnnotations</li>
-     </ul>
-</section>
-
-<section>
-     <h4>magnovault.IdentityModels</h4>
-     <p>This class library defines the domain models shared by the <b>magnovaultadmin</b> and <b>magnovaultsite</b> projects, which are specific to managing users and administrators.</p>
-     Dependencies:
-     <ul>
-          <li>System.ComponentModel.DataAnnotations</li>
+          <li><b>Emailer</b>: sends notification emails.  As with AuthorizeNet, the SMPT authorization information is held in Web.config, and passed by the caller.</li>
+          <li><b>OrderCalculator</b>: to avoid inconsistencies, order prices are always calculated by this "single source of truth:" class.  Its logic can be customized based on customer location, tax tables, and the active campaign.  Customization should generally be applied to the Adjustments line.</li>
      </ul>
 </section>
 
+<h3 class="documentation-header">magnovault.Site</h3>
 <section>
-     <h4>magnovaultadmin</h4>
+     <p>The website is built as a SPA using ASP.NET 4.6.  Views are contained within <b>article</b>s which are hidden and unhidden.</p>
+     <p>All page logic is contained in JavaScript/jQuery contained in <b>_Layout.cshtml</b></p>
+     <p>Actions are handled by a combination of AJAX calls to the Home controller, and traditional form posts to the controller.</p>
+     <p>The website supports optional login using Microsoft Identity user-level authentication.</p>
+     <ul>
+          <li>Login allows the contact and order forms to be pre-populated for user convenience, and allows orders to be saved rather than submitted.</li>
+          <li>If a user is signed in, the order page will be populated with their most recent saved order.</li>
+     </ul>
+</section>
+
+<h3 class="documentation-header">magnovault.Admin</h3>
+<section>
      <p>The administration site is built in ASP.NET Framework 4.6, and is secured using Microsoft Identity user-level authentication.  It uses the same API to transfer data to/from the database</p>
-     <p>Code and techniques for modifying Microsoft.Identity to use MySql as a provider, were adapted from <b>https://docs.microsoft.com/en-us/aspnet/identity/overview/extensibility/implementing-a-custom-mysql-aspnet-identity-storage-provider</b></p>     
      <p>Unity, providing Dependency Injection, was removed because of fatal interactions with the Microsoft.Identity code.</p>
      <p>Password validation rules are configured in App_Start.IdentityConfig, and are all deactivated for convenience.  It is the user's responsibility, then, to ensure their password is sufficiently strong.</p>
-     <p><b>magnovaultadmin</b> interacts with <b>magnovaultapi</b> via the <code>magnovaultadmin.DAL.apiClient</code> class</p>
-     <p><b>apiClient</b> connects using an <code>apiBase</code> URL which is configured as an appSettings key in <code>Web.config</code>.  This appSettings key must be manually reconfigured when switching between localhost and published locations of <b>magnovaultapi</b>.</p>
-     <p>To support Microsoft Identity, <b>magnovaultadmin</b> also connects directly with the <b>magnovaultdata</b> database, using a connection string configured as an appSettings key in <code>Web.config</code>.</p>
-     <p>Currently, this connection string contains <code>Ssl=none</code>, specifying a non-SSL connection contrary to the Microsoft Identity default.  This should be removed when an SSL certificate is applied.</p>
      <p>Where customer info is presented, an asterisk marks the preferred contact method.</p>
      <p>The <b>Add Order</b> and <b>Edit Order</b> methods calculate the ViewOrderItem.UnitPrice and LineTotal, and ViewOrder.Subtotal, Tax, ShipHand and Total amounts on demand, and these are persisted in the database as a permanent record of the quoted amounts.</p>
      <p>Note this results in these tables being de-normalized.</p>
@@ -69,50 +70,9 @@
      </ul>
 </section>
 
+<h3 class="documentation-header">magnovaultdata</h3>
 <section>
-     <h4>magnovaultadmin.Tests</h4>
-     <p>Unit tests for <b>magnovaultadmin</b>. Written using the <b>MSTest</b> framework.  The HomeController's <code>IApiClient</code> dependency is mocked.</p>
-     Dependencies:
-     <ul>
-          <li>Moq</li>
-     </ul>
-</section>
-
-<section>
-     <h4>magnovaultapi</h4>
-     <p>An ASP.NET WebAPI2, secured using Microsoft Identity user-level authentication.  A monolithic REST API, providing all database data to the front- and back-end apps.  Data is transferred as JSON.</p>
-     <p>
-          Security:
-          <ul>
-               <li>The API requires basic authentication (username:password in the Authentication Header) for all calls.</li>
-               <li>Two values are acceptable, one used by the adminstration application (configured in <code>Web.config</code>) and set by the <code>ApiClient</code> class), and one used by the website (set in the React service making the API call).</li>
-               <li>The <code>AuthorizeRequest</code> filter attribute, found in the <code>magnovault.Security</code> folder, checks the incoming authentication header against its own copies of the two values, found in <code>Web.config</code>.</li>
-               <li>The <code>AuthorizeRequest</code> filter attribute can be used without parameters, in which case it will accept either value in the incoming authentication header.  Alternatively, it recognizes "administration" or "website" as a parameter, in which case it will only accept the authentication header value for that source.</li>
-               <li>The <code>AuthorizeRequest</code> filter attribute is applied without parameters to the magnovaultapi.ValuesController overall, and is applied with an "administration" parameter to certain methods.  This restricts certain methods to the magnovaultadmin application only (the website cannot invoke them). </li>
-               <li>To allow authenticated access to the API from other domains, CORS is enabled per the instructions at <b>https://docs.microsoft.com/en-us/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api</b></li>
-          </ul>
-             
-     </p>
-     <p>
-          Dependencies:
-          <ul>
-               <li>Entity Framework</li>
-               <li>MySql Data (download the installer from the MySQL website, and add its MySql extensions for Visual Studio, before adding the package to the project)</li>
-               <li>Newtonsoft.Json</li>
-               <li>System.ComponentModel.DataAnnotations</li>
-               <li>Microsoft.AspNet.WebApi.Cors</li>
-          </ul>
-     </p>
-</section>
-
-<section>
-     <h4>magnovaultapi.Tests</h4>
-     <p>Unit tests for <b>magnovaultapi</b>. Written using the <b>MSTest</b> framework.</p>
-</section>
-
-<section>
-     <h4>magnovaultdata</h4>
-     <p>A MySQL database containing both domain data tables and user identity tables:</p>
+     <p>A Microsoft SQL Server database containing both domain data tables and user identity tables:</p>
      <ul>
           <li>BusinessRules (single record is used as a key-value store)</li>
           <li>Products</li>
@@ -127,12 +87,4 @@
           <li>Users (this table holds <b>ApplicationUser</b> objects. <b>Customer</b> domain objects are also constructed from this table: <b>Customers</b> are <b>ApplicationUsers</b> without security-sensitive properties like PasswordHash</li>
 
      </ul>
-     <p>
-          Security:
-          <ul>
-               <li><b>magnovaultdata</b> is password protected (set under GoDaddy.Databases.Users).</li>
-               <li>The username and password are incorporated in the <b>magnovaultapi</b> connection string.</li>
-          </ul>
-
-     </p>
 </section>

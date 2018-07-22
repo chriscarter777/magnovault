@@ -8,17 +8,16 @@ namespace magnovault.Site
           public static void RegisterBundles(BundleCollection bundles)
           {
                bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
-                         "~/Scripts/jquery-{version}.js",
+                         "~/Scripts/jquery-{version}.min.js",
                          "~/Scripts/jquery.validate-vsdoc.js",
-                         "~/Scripts/jquery.validate.js",
-                         "~/Scripts/jquery.validate.unobtrusive.js",
-                         "~/Scripts/jquery.unobtrusive-ajax.js",
-                         "~/Scripts/bootstrap.js",
-                         "~/Scripts/respond.js"
+                         "~/Scripts/jquery.validate.min.js",
+                         "~/Scripts/jquery.validate.unobtrusive.min.js",
+                         "~/Scripts/jquery.unobtrusive-ajax.min.js",
+                         "~/Scripts/bootstrap.min.js"
                          ));
 
                bundles.Add(new StyleBundle("~/Content/css").Include(
-                         "~/Content/bootstrap.css",
+                         "~/Content/bootstrap.min.css",
                          "~/Content/Site.css"));
           }
      }

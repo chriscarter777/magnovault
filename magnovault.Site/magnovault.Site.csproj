@@ -34,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -203,31 +204,17 @@
   <ItemGroup>
     <None Include="compilerconfig.json" />
     <Content Include="Content\authorize-net-logo.png" />
-    <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\chest1.png" />
-    <Content Include="Content\chest2.png" />
-    <Content Include="Content\Logo_0_5in.png" />
-    <Content Include="Content\Logo_10in.png" />
-    <Content Include="Content\Logo_1in.png" />
-    <Content Include="Content\Logo_1_5in.png" />
     <Content Include="Content\Logo_2in.png" />
-    <Content Include="Content\Logo_2_5in.png" />
-    <Content Include="Content\Logo_3in.png" />
     <Content Include="Content\Logo_4in.png" />
-    <Content Include="Content\Logo_5in.png" />
-    <Content Include="Content\Logo_6in.png" />
-    <Content Include="Content\Logo_7in.png" />
-    <Content Include="Content\Logo_8in.png" />
-    <Content Include="Content\Logo_9in.png" />
     <Content Include="Content\paypal_logo.jpg" />
+    <Content Include="Content\photo-main.jpg" />
     <Content Include="Content\Site.css">
       <DependentUpon>Site.scss</DependentUpon>
     </Content>
     <Content Include="Content\Site.min.css">
       <DependentUpon>Site.css</DependentUpon>
     </Content>
-    <Content Include="Content\VS_Dealer_Badge.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -240,6 +227,7 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
+    <None Include="Properties\PublishProfiles\magnovault.com - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\magnovault.cscarter.net - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -251,9 +239,6 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\respond.js" />
-    <Content Include="Scripts\respond.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -290,6 +275,7 @@
     <Content Include="Views\Home\_Product_0_FeatSpec.cshtml" />
     <Content Include="Views\Home\_Product_1_FeatSpec.cshtml" />
     <Content Include="Views\Home\_OrderResponse.cshtml" />
+    <Content Include="Views\Home\_ProductComparison.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -328,6 +314,9 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

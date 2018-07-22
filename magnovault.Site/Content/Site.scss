@@ -1,7 +1,9 @@
 ﻿/*SASS Variables*/
-$background: #fcfadd;
+$background: #ccd0d1;
+$blue-panel: rgb(47,84,150);
 $blue-font: #3b689a;
-$khaki-panel: #f0eaaa;
+$khaki-panel: #f0daaa;
+
 /*--------------------------------------------------*/
 /*.NET Defaults*/
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -66,9 +68,8 @@ body {
 }
 
 .component {
-     min-height: 100vh;
+     min-height: calc(100vh - 90px);
      background: $background;
-     padding: 50px 20px 20px 20px;
 }
 
 header {
@@ -76,21 +77,43 @@ header {
      text-align:center;
 }
 
-.top-content{
-     padding-top:40px;
+.article-content{
+     padding:0 20px;
+}
+
+.titletron {
+     background: $blue-panel;
+     padding: 20px;
+     margin-bottom: 40px;
 }
 
 .page-title {
      font-size: 32px;
      font-weight: 700;
-     color: #3d3d3d;
-     margin: 0;
+     font-variant: small-caps;
+     color: #fff;
+     margin: 20px 0 0 0;
 }
 
-.page-subtitle {
-     font-size: 22px;
+.super-byline {
+     font-size: 32px;
+     font-weight: 700;
+     font-variant: small-caps;
+     color: #fff;
+     margin: 0 0 20px 0;
+}
+
+.sub-byline {
+     font-size: 24px;
      font-style: italic;
-     color: $blue-font;
+     color: #fff;
+}
+
+.trademark {
+     font-size: 60%;
+     position: relative;
+     top: 7px;
+     left: -5px;
 }
 
 .vidsurv-badge {
@@ -108,7 +131,7 @@ header {
 .adspace {
      height: 100px;
      width: 94%;
-     margin: 50px 3% 0 3%;
+     margin: 40px 3% 0 3%;
      padding: 40px 0 0 0;
      text-align: center;
      border: 1px solid goldenrod;
@@ -132,7 +155,6 @@ header {
 
 .privacy-statement {
      text-align: center;
-     margin: 40px auto;
 }
 
 .privacy-header {
@@ -146,6 +168,12 @@ footer {
      text-align: center;
      color: $blue-font;
      background-color: $background;
+}
+
+thead{
+     font-weight:bold;
+     color:darkblue;
+     background-color:#def;
 }
 
 /*--------------------------------------------------*/
@@ -172,8 +200,7 @@ footer {
 /*--------------------------------------------------*/
 /*Forms*/
 .contact-form {
-     border: 1px solid $blue-font;
-     padding: 10px;
+     padding: 10px 50px;
 }
 
 .contact-form label {
@@ -228,7 +255,7 @@ input[type="radio"] {
      margin: 0 25px 0 5px;
 }
 
-input[type="text"] {
+.standard-input {
      width: 200px;
      border: 1px solid $blue-font;
      border-radius: 3px;
@@ -273,7 +300,7 @@ input[type="text"].text-long {
 .about-copy {
      font-size: 18px;
      color: $blue-font;
-     margin:50px 10%;
+     margin:80px 8%;
 }
 
 
@@ -308,6 +335,7 @@ input[type="text"].text-long {
      line-height: 40px;
      background-color: $khaki-panel;
      border-radius: 50px;
+     text-align:left;
 }
 
 .product-details {
@@ -372,7 +400,16 @@ input[type="text"].text-long {
 /*--------------------------------------------------*/
 /*Contacts*/
 address {
-     font-size: 18px;
-     color: $blue-font;
+     font-size: 24px;
+     color: #ffffff;
+     font-variant:small-caps;
+     padding-top:10px;
 }
 
+.acknowledgement{
+     margin-left:220px;
+     color:green;
+     padding:10px;
+     font-style:italic;
+     font-size:14px;
+}

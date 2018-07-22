@@ -104,9 +104,9 @@ namespace magnovault.Admin.Controllers
           }
 
           [HttpPost]
-          public async Task<ActionResult> InvestorContacts(HomeViewModel model)
+          public async Task<ActionResult> InvestorContacts(HomeViewModel model, int id)
           {
-               model.InvestorContacts = await repository.UpdateInvestorContactAsync(model.InvestorContacts[0], true);
+               model.InvestorContacts = await repository.UpdateInvestorContactAsync(model.InvestorContacts[id], true);
                return View("InvestorContacts", model);
           }
 
@@ -139,9 +139,9 @@ namespace magnovault.Admin.Controllers
           }
 
           [HttpPost]
-          public async Task<ActionResult> MediaContacts(HomeViewModel model)
+          public async Task<ActionResult> MediaContacts(HomeViewModel model, int id)
           {
-               model.MediaContacts = await repository.UpdateMediaContactAsync(model.MediaContacts[0], true);
+               model.MediaContacts = await repository.UpdateMediaContactAsync(model.MediaContacts[id], true);
                return View("MediaContacts", model);
           }
 
@@ -313,9 +313,9 @@ namespace magnovault.Admin.Controllers
           }
 
           [HttpPost]
-          public async Task<ActionResult> Products(HomeViewModel model)
+          public async Task<ActionResult> Products(HomeViewModel model, int id)
           {
-               model.Products = await repository.UpdateProductAsync(model.Products[0], true, false);
+               model.Products = await repository.UpdateProductAsync(model.Products[id], true, false);
                return View("Products", model);
           }
 
@@ -350,9 +350,9 @@ namespace magnovault.Admin.Controllers
           }
 
           [HttpPost]
-          public async Task<ActionResult> PublicContacts(HomeViewModel model)
+          public async Task<ActionResult> PublicContacts(HomeViewModel model, int id)
           {
-               model.PublicContacts = await repository.UpdatePublicContactAsync(model.PublicContacts[0], true);
+               model.PublicContacts = await repository.UpdatePublicContactAsync(model.PublicContacts[id], true);
                return View("PublicContacts", model);
           }
 
@@ -385,9 +385,9 @@ namespace magnovault.Admin.Controllers
           }
 
           [HttpPost]
-          public async Task<ActionResult> RetailContacts(HomeViewModel model)
+          public async Task<ActionResult> RetailContacts(HomeViewModel model, int id)
           {
-               model.RetailContacts = await repository.UpdateRetailContactAsync(model.RetailContacts[0], true);
+               model.RetailContacts = await repository.UpdateRetailContactAsync(model.RetailContacts[id], true);
                return View("RetailContacts", model);
           }
 

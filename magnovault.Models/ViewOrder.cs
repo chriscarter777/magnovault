@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -9,7 +10,9 @@ namespace magnovault.Models
      [NotMapped]
      public class ViewOrder : Order
      {
+          [DisplayName("First Name")]
           public string FirstName { get; set; }
+          [DisplayName("Last Name")]
           public string LastName { get; set; }
           public string Street { get; set; }
           public string City { get; set; }
@@ -19,6 +22,7 @@ namespace magnovault.Models
           public string Zip { get; set; }
           public string Email { get; set; }
           public string Phone { get; set; }
+          [DisplayName("Preferred")]
           public string BestMethod { get; set; }
           public List<ViewOrderItem> Items { get; set; }
 

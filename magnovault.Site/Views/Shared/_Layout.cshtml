@@ -6,7 +6,6 @@
      <title>@ViewBag.Title</title>
 </head>
 <body>
-     @Scripts.Render("~/bundles/scripts")
      @Styles.Render("~/Content/css")
 
      <div class="navbar navbar-inverse navbar-fixed-top">
@@ -28,11 +27,11 @@
                                    <span class='glyphicon glyphicon-home'></span> Home
                               </div>
                          </li>
-                         <li>
-                              <div class="navlink" id='dapLink'>
-                                   <span class='glyphicon glyphicon-th-list'></span> The Problem
-                              </div>
-                         </li>
+                         @*<li>
+                                   <div class="navlink" id='dapLink'>
+                                        <span class='glyphicon glyphicon-th-list'></span> The Problem
+                                   </div>
+                              </li>*@
                          <li>
                               <div class="navlink" id='productLink'>
                                    <span class='glyphicon glyphicon-th-list'></span> Products
@@ -77,6 +76,7 @@
      </div>
 
 
+     @Scripts.Render("~/bundles/scripts")
      <script>
      //Navigation
      $('#aboutLink').click(function () {
@@ -84,6 +84,8 @@
           $('#about').removeAttr('hidden');
           $('.navlink').removeClass('active');
           $('#aboutLink').addClass('active');
+          $('.submit-contact').removeAttr('disabled');
+          $('.acknowledgement').attr('hidden', true);
      });
 
      $('#dapLink').click(function () {
@@ -91,6 +93,8 @@
           $('#dap').removeAttr('hidden');
           $('.navlink').removeClass('active');
           $('#dapLink').addClass('active');
+          $('.submit-contact').removeAttr('disabled');
+         $('.acknowledgement').attr('hidden', true);
      });
 
      $('#faqLink').click(function () {
@@ -98,6 +102,8 @@
           $('#faq').removeAttr('hidden');
           $('.navlink').removeClass('active');
           $('#faqLink').addClass('active');
+          $('.submit-contact').removeAttr('disabled');
+        $('.acknowledgement').attr('hidden', true);
      });
 
      $('#homeLink').click(function () {
@@ -105,6 +111,8 @@
           $('#home').removeAttr('hidden');
           $('.navlink').removeClass('active');
           $('#homeLink').addClass('active');
+          $('.submit-contact').removeAttr('disabled')
+         $('.acknowledgement').attr('hidden', true);
      });
 
      $('#investorLink').click(function () {
@@ -113,6 +121,8 @@
           $('.navlink').removeClass('active');
           $('#contactLink').addClass('active');
           $('#investorLink').addClass('active');
+          $('.submit-contact').removeAttr('disabled');
+         $('.acknowledgement').attr('hidden', true);
      });
 
      $('#mediaLink').click(function () {
@@ -121,6 +131,7 @@
           $('.navlink').removeClass('active');
           $('#contactLink').addClass('active');
           $('#mediaLink').addClass('active');
+          $('.acknowledgement').attr('hidden', true);
      });
 
      $('#orderLink').click(function () {
@@ -128,14 +139,16 @@
           $('#order').removeAttr('hidden');
           $('.navlink').removeClass('active');
           $('#orderLink').addClass('active');
-     });
+          $('.acknowledgement').attr('hidden', true);
+    });
 
      $('#productLink').click(function () {
           $('.component').attr('hidden', true);
           $('#products').removeAttr('hidden');
           $('.navlink').removeClass('active');
           $('#productLink').addClass('active');
-     });
+          $('.acknowledgement').attr('hidden', true);
+    });
 
      $('#publicLink').click(function () {
           $('.component').attr('hidden', true);
@@ -143,7 +156,8 @@
           $('.navlink').removeClass('active');
           $('#contactLink').addClass('active');
           $('#publicLink').addClass('active');
-     });
+          $('.acknowledgement').attr('hidden', true);
+    });
 
      $('#retailerLink').click(function () {
           $('.component').attr('hidden', true);
@@ -151,7 +165,8 @@
           $('.navlink').removeClass('active');
           $('#contactLink').addClass('active');
           $('#retailerLink').addClass('active');
-     });
+          $('.acknowledgement').attr('hidden', true);
+    });
 
      //Home
 
@@ -218,13 +233,21 @@
           if ($('#Order_ShipState').val() != '') {
                calculateOrder();
           }
-          });
+      });
 
-          $('#checkout-order').click(function () {
-               $('#order-action').show();
-               $('#close-message').text('Cancel');
-               $('#modal-resolution').hide();
-          });
+     $('#checkout-order').click(function () {
+          $('#order-action').show();
+          $('#close-message').text('Cancel');
+          $('#modal-resolution').hide();
+          //show only those products with nonzero quantity
+          var items = document.querySelectorAll('.order-item-row');
+          for (let i = 0; i < items.length; i++) {
+               var quantity = items[i].querySelector('.order-item-quantity').innerHTML;
+               if (quantity > 0) {
+                    items[i].removeAttribute('hidden')
+               }
+          };
+     });
 
      function calculateSubtotal() {
           var subtotal = 0;
@@ -302,45 +325,59 @@
                     $('#submit-order').removeAttr('disabled');
                }
           });
-          };
+      };
 
-          function submitOrderSuccess(data) {
-               switch (data) {
-                    case '1':
-                         {
-                              $('#response-message').text('Your order was submitted successfully.');
-                              break;
-                         }
-                    case '2':
-                         {
-                              $('#response-message').text('Sorry, your order was declined by the processor.');
-                              break;
-                         }
-                    case '3':
-                         {
-                              $('#response-message').text('Sorry, an error occurred while processing your order.');
-                              break;
-                        }
-                    case '4':
-                         {
-                              $('#response-message').text('Your order was held for review by the processor.');
-                              break;
-                        }
-                    default:
-                         {
-                              $('#response-message').text('Sorry, an unknown response was received while processing your order.');
-                        }
-               };
-               $('#order-action').hide();
-               $('#close-message').text('Close');
-               $('#modal-resolution').show();
-         };
-
-          function submitOrderFailure(data) {
-               $('#response-message').text('An error occurred while submitting your order to the processor.  Retrying may work.');
-               $('#close-message').text('Close');
-               $('#modal-resolution').show();
+     function submitOrderSuccess(data) {
+          switch (data) {
+               case '1':
+                    {
+                         $('#response-message').text('Your order was submitted successfully.');
+                         break;
+                    }
+               case '2':
+                    {
+                         $('#response-message').text('Sorry, your order was declined by the processor.');
+                         break;
+                    }
+               case '3':
+                    {
+                         $('#response-message').text('Sorry, an error occurred while processing your order.');
+                         break;
+                    }
+               case '4':
+                    {
+                         $('#response-message').text('Your order was held for review by the processor.');
+                         break;
+                    }
+               default:
+                    {
+                         $('#response-message').text('Sorry, an unknown response was received while processing your order.');
+                    }
           };
+          $('#order-action').hide();
+          $('#close-message').text('Close');
+          $('#modal-resolution').show();
+          //reset the order items in the checkout modal
+          var items = document.querySelectorAll('.order-item-row');
+          for (let i = 0; i < items.length; i++) {
+               items[i].setAttribute('hidden', true);
+          }
+     };
+
+     $('#close-checkout').click(function () {
+          //reset the order items in the checkout modal
+          var items = document.querySelectorAll('.order-item-row');
+          for (let i = 0; i < items.length; i++) {
+               items[i].setAttribute('hidden', true);
+          }
+     });
+
+
+     function submitOrderFailure(data) {
+          $('#response-message').text('An error occurred while submitting your order to the processor.  Retrying may work.');
+          $('#close-message').text('Close');
+          $('#modal-resolution').show();
+     };
 
 
      //Investor Contact
@@ -372,9 +409,10 @@
                context: document.body,
                data: contact,
                success: function (response) {
-                    $('#InvestorFeedback').val(response);
+                    $('#investor-acknowledgement').removeAttr('hidden');
                }
           });
+          $('.submit-contact').attr('disabled', true);
      });
 
 
@@ -407,9 +445,10 @@
                context: document.body,
                data: contact,
                success: function (response) {
-                    $('#MediaFeedback').val(response);
+                    $('#media-acknowledgement').removeAttr('hidden');
                }
           });
+          $('.submit-contact').attr('disabled', true);
      });
 
 
@@ -442,10 +481,11 @@
                context: document.body,
                data: contact,
                success: function (response) {
-                    $('#PublicFeedback').val(response);
+                    $('#public-acknowledgement').removeAttr('hidden');
                }
           });
-     });
+          $('.submit-contact').attr('disabled', true);
+    });
 
 
      //Retail Contact
@@ -479,9 +519,10 @@
                context: document.body,
                data: contact,
                success: function (response) {
-                    $('#RetailFeedback').val(response);
+                    $('#retail-acknowledgement').removeAttr('hidden');
                }
           });
+          $('.submit-contact').attr('disabled', true);
      });
 
      //About

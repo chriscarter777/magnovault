@@ -1,4 +1,7 @@
-﻿body {
+﻿/*SASS Variables*/
+$label-width: 80px;
+
+body {
      padding-top: 50px;
      padding-bottom: 20px;
 }
@@ -110,7 +113,7 @@ td {
 }
 
 .form-group > label {
-     width: 100px;
+     width: $label-width;
 }
 
 .plain{
@@ -125,4 +128,8 @@ td {
 
 .btn-margin{
      margin:4px;
+}
+
+.label-like{
+     font-weight:bold;
 }
